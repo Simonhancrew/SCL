@@ -8,27 +8,55 @@ Standar Code Library，记录算法的模板和算法学习。
 
 ### [DataStruct](Datastruct/):
 
-常见的数据结构的数组实现
++ 单调栈 + 队列
+
++ Trie Tree
+
++ Union Find
+
++ heap
+
++ hash
 
 ### [Graph](Graph/)
 
-搜索，最短路，最小生成树
++ BFS + DFS
+
++ Topsort
+
++ 最短路
+
++ 最小生成树
+
++ 二分图
 
 ### [greedyAlgo](greedyAlgorithm/)
 
-贪心算法的套路
++ 区间贪心
+
++ Huffman树
+
++ 不等式排序
+
++ 推公式
 
 ### [Math](Math/)
 
-各种数论问题
++ 质数
+
++ 约数
+
++ 欧拉
+
++ qmi
 
 ### [random](Random/)
 
-随机处理
++ 随机处理
 
 ### [Search](Search/)
 
-搜索（整数二分和浮点数二分）
++ 整数二分和浮点数2分
 
 ### [Sort](Sort/)
 
@@ -44,7 +72,19 @@ Standar Code Library，记录算法的模板和算法学习。
 
 ### [Dynamic Programming](DynamicProgramming)
 
-dp模型
++ 背包模型
+
++ 序列dp模型
+
++ 区间dp模型
+
++ 计数dp
+
++ 状压dp
+
++ 树形dp
+
++ 记忆化搜索
 
 ---
 
