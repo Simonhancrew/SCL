@@ -2,23 +2,20 @@
 
 Standar Code Library，记录算法的模板和算法学习。
 
-### [bit](Bit/)
+### [bit](SCL/Bit/)
 
 + lowbit
 
-### [DataStruct](Datastruct/):
+### [DataStruct](SCL/Datastruct/):
 
 + 单调栈 + 队列
-
 + Trie Tree
-
 + Union Find
-
 + heap
-
 + hash
++ todo:AC自动机，可持久化数据结构，平衡树，线段树，树状数组
 
-### [Graph](Graph/)
+### [Graph](SCL/Graph/)
 
 + BFS + DFS
 
@@ -30,7 +27,7 @@ Standar Code Library，记录算法的模板和算法学习。
 
 + 二分图
 
-### [greedyAlgo](greedyAlgorithm/)
+### [greedyAlgo](SCL/greedyAlgorithm/)
 
 + 区间贪心
 
@@ -40,7 +37,7 @@ Standar Code Library，记录算法的模板和算法学习。
 
 + 推公式
 
-### [Math](Math/)
+### [Math](SCL/Math/)
 
 + 质数
 
@@ -50,27 +47,28 @@ Standar Code Library，记录算法的模板和算法学习。
 
 + qmi
 
-### [random](Random/)
+### [random](SCL/Random/)
 
 + 随机处理
 
-### [Search](Search/)
+### [Search](SCL/Search/)
 
 + 整数二分和浮点数2分
++ todo:多源BFS，双向BFS，A*，双向DFS，IDA\*,Flood Fill.
 
-### [Sort](Sort/)
+### [Sort](SCL/Sort/)
 
 常见排序算法
 
-### [string](String/)
+### [string](SCL/String/)
 
 字符串相关算法，kmp和马拉车
 
-### [Tricks](Tricks/)
+### [Tricks](SCL/Tricks/)
 
 常见技巧，双指针等
 
-### [Dynamic Programming](DynamicProgramming)
+### [Dynamic Programming](SCL/DynamicProgramming)
 
 + 背包模型
 
