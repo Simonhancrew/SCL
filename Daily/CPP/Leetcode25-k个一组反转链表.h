@@ -1,24 +1,31 @@
+#include "ADT.hpp"
+
+using namespace std;
+
 class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
         auto dummy = new ListNode(0);
         dummy -> next = head;
-        for(auto p = dummy;;){
-            auto q = p;
-            for(int i = 0;i < k && q;i++){
-                q = q->next;
+        for(auto tmp = dummy;;){
+            auto cur = tmp;
+            for(int i = 0;i < k && cur;i++){
+                cur = cur->next;   
             }
-            if(!q) break;
-            auto a = p->next,b = a ->next;
+            if(!cur) break;
+            auto prev = tmp->next;
+            cur = prev -> next;
             for(int i = 0;i < k - 1;i++){
-                auto c = b -> next;
-                b->next = a;
-                a = b,b = c;
+                auto tail = cur->next;
+                cur->next = prev;
+                prev = cur,cur = tail;
             }
-            auto c = p->next;
-            p->next = a,c->next = b;
-            p = c;
+            auto tail = tmp->next;
+            tmp->next = prev,tail->next = cur;
+            tmp = tail;
         }
-        return dummy -> next;
+        auto rec = dummy->next;
+        delete dummy;
+        return rec;
     }
 };
