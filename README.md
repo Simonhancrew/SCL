@@ -1,6 +1,6 @@
 ## 算法模板
 
-Standar Code Library，记录算法的模板和算法学习。
+Standar Code Library，2021/03/12开始学算法，记录算法的模板和算法学习。
 
 ### [bit](SCL/Bit/)
 
