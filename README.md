@@ -40,12 +40,10 @@ Standar Code Library，2021/03/12开始学算法，记录算法的模板和算�
 ### [Math](SCL/Math/)
 
 + 质数
-
 + 约数
-
 + 欧拉
-
 + qmi
++ 高精度运算
 
 ### [random](SCL/Random/)
 
@@ -62,11 +60,12 @@ Standar Code Library，2021/03/12开始学算法，记录算法的模板和算�
 
 ### [string](SCL/String/)
 
-字符串相关算法，kmp和马拉车
++ kmp
++ manacher
 
 ### [Tricks](SCL/Tricks/)
 
-常见技巧，双指针等
++ 双指针
 
 ### [Dynamic Programming](SCL/DynamicProgramming)
 
