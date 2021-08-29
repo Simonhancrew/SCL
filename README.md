@@ -2,6 +2,10 @@
 
 Standar Code Library，2021/03/12开始学算法，记录算法的模板和算法学习。
 
+由于算法知识点复杂，很多题其实是经验和技巧的结合，所以针对自己做过的题目做出一定的总结是必要的。
+
+值得参考的repo就是[codeforces-go](https://github.com/EndlessCheng/codeforces-go)
+
 ### [bit](SCL/Bit/)
 
 + lowbit
@@ -83,9 +87,8 @@ Standar Code Library，2021/03/12开始学算法，记录算法的模板和算�
 
 + 记忆化搜索
 
----
 
-### 从数据范围反推算法的技巧
+## 从数据范围反推算法的技巧
 
 一般ACM或者笔试题的时间限制是1秒或2秒。
 在这种情况下，C++代码中的操作次数控制在 10<sup>7</sup>- 10<sup>8</sup> 为最佳。
