@@ -4,14 +4,8 @@ B+树的复杂度探索
 
 ### 1 B+树的复杂度
 
-$$
-mlog_{m}N
-$$
+一般描述的复杂度是mlog<sub>m</sub>N或者log<sub>2</sub>N
 
-
-$$
-log_{2}m * log_{2}N 
-$$
 **从我们一般理解的数据结构角度，时间复杂度是这两个**
 
 一般意义上的时间复杂度，仅考虑算法在计算上消耗的步骤，不考虑IO
@@ -27,13 +21,11 @@ $$
 4. 因此，B+树搜索时间复杂度 =mlog<sub>m</sub>N或者log<sub>m</sub>N * log<sub>2</sub>m
 
 对于后者我们用换底公式
-$$
-log_{a}b = \frac{log_{c}b}{log_{c}{a}}
-$$
-于是可以得到
-$$
-log_{2}N
-$$
+
+log<sub>a</sub>b =  log<sub>c</sub>b / log<sub>c</sub>a
+
+就可以得到后续的结果
+
 
 ### 2 红黑树的复杂度
 
