@@ -32,8 +32,8 @@ int main(){
                     int t = w[i1][j1];
                     if(i1 != i2) t += w[i2][j2];
                     int& x = dp[k][i1][i2];
-                    x = max(x,dp[k - 1][i1 - 1][i2 - 1] + t);
-                    x = max(x,dp[k - 1][i1 - 1][i2] + t);
+                    x = max(x,dp[k - 1][i1 - 1][i2 - 1] + t); // 两条路都往下
+                    x = max(x,dp[k - 1][i1 - 1][i2] + t);  // i1往下，i2往右
                     x = max(x,dp[k - 1][i1][i2 - 1] + t);
                     x = max(x,dp[k - 1][i1][i2] + t);
                 }
