@@ -1,5 +1,9 @@
 #include <vector>
-using namespace std; 
+#include <cstring>
+
+using namespace std;
+ 
+#if 0
 //维护两个序列
 //并且要记录最长的长度
 //让再次遍历的时候把该长度的count加起来
@@ -38,5 +42,33 @@ public:
             }
         }
         return res;
+    }
+};
+#endif
+// 最长上升子序列模型，外加一个数组记录当前个数
+class Solution {
+public:
+    int findNumberOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        int dp[n + 1],cnt[n + 1];
+        int mm = 0,ans = 0;
+        memset(dp,0,sizeof dp);
+        memset(cnt,0,sizeof cnt);
+        for(int i = 1;i <= n;i++){
+            dp[i] = 1,cnt[i] = 1;
+            for(int j = 1;j < i;j++){
+                if(nums[j - 1] < nums[i - 1]){
+                    if(dp[i] == dp[j] + 1) cnt[i] += cnt[j];
+                    else if(dp[i] < dp[j] + 1) dp[i] = dp[j] + 1,cnt[i] = cnt[j];
+                }
+            }
+            if(mm < dp[i]){
+                mm = dp[i];
+                ans = cnt[i];
+            }else if(mm == dp[i]){
+                ans += cnt[i];
+            }
+        }
+        return ans;
     }
 };
