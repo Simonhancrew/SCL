@@ -2,6 +2,7 @@
 #include <numeric>
 #include <algorithm>
 using namespace std;
+#if 0
 //动态规划，等分数组，一半一半
 //dp[i][j] 0-i这些下标的数能不能凑成和为j的数
 //j最大为target
@@ -42,5 +43,24 @@ public:
             }
         }
         return dp[n - 1][target];
+    }
+};
+#endif
+// 01背包模型
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int sum = accumulate(nums.begin(),nums.end(),0);
+        if(sum & 1) return false;
+        int target = sum / 2,n = nums.size();
+        int dp[target + 1];
+        memset(dp,0,sizeof dp);
+        dp[0] = 1;
+        for(int i = 1;i <= n;i++){
+            for(int j = target;j >= nums[i - 1];j--){
+                dp[j] |= dp[j - nums[i - 1]];
+            }
+        }
+        return dp[target];
     }
 };
