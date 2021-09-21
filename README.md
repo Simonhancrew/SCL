@@ -76,7 +76,11 @@ Standar Code Library，2021/03/12开始学算法，记录算法的模板和算�
 ### [Dynamic Programming](SCL/DynamicProgramming)
 
 + 背包模型
-+ 序列dp模型
++ [线性dp]()
+    + [数字三角模型]()
+    + [最长上升子序列]()
+    + 最长公共子序列
+    
 + 区间dp模型
 + 计数dp
 + 状压dp
