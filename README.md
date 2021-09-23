@@ -4,7 +4,7 @@ Standar Code Library，2021/03/12开始学算法，记录算法的模板和算�
 
 由于算法知识点复杂，很多题其实是经验和技巧的结合，所以针对自己做过的题目做出一定的总结是必要的。
 
-值得参考的repo就是[codeforces-go](https://github.com/EndlessCheng/codeforces-go)
+值得参考的repo就是[codeforces-go](https://github.com/EndlessCheng/codeforces-go)，当然，遇到不会的算法，遇事不决，[OI-Wiki](https://oi-wiki.org/)
 
 ### [bit](SCL/Bit/)
 
