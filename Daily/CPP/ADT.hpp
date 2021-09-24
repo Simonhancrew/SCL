@@ -35,3 +35,11 @@ public:
         children = _children;
     }
 };
+// double link list
+class Node {
+public:
+    int val;
+    Node* prev;
+    Node* next;
+    Node* child;
+};
