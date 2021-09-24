@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 using namespace std;
+#if 0
 //删除的结果就是最长公共子序列，可以从以上地推过来
 class Solution {
 public:
@@ -23,5 +24,34 @@ private:
             }
         }
         return dp[m][n];
+    }
+};
+#endif
+
+// 这不就是简化版的edit distance嘛
+// dp[i][j],a的前i个字符变成b的前j个字符要删除多少个
+/* 
+    分4种情况：
+    1. a[i],b[j]都要删除
+    2. a[i],b[j]留i
+    3. 留j
+    4. 都留
+    都留的情况其实在前两者种已经覆盖到了（又可以继续细分），不必单独考虑了。
+*/
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
+        int n = word1.size(),m = word2.size();
+        int dp[n + 1][m + 1];
+        memset(dp,0,sizeof dp);
+        for(int i = 0;i <= n;i++) dp[i][0] = i;
+        for(int i = 0;i <= m;i++) dp[0][i] = i;
+        for(int i = 1;i <= n;i++){
+            for(int j = 1;j <= m;j++){
+                dp[i][j] = min(dp[i - 1][j] + 1,dp[i][j - 1] + 1);
+                if(word1[i - 1] == word2[j - 1]) dp[i][j] = min(dp[i][j],dp[i - 1][j - 1]);
+            }
+        }
+        return dp[n][m];
     }
 };
