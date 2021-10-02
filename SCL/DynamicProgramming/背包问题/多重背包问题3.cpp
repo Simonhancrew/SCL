@@ -40,6 +40,7 @@ int n,m;
     dp[j+3v] = max(dp[j], dp[j+v] - w, dp[j+2v] - 2w, dp[j+3v] - 3w) + 3w
     ...
     这样，每次入队的值是 dp[j+k*v] - k*w
+    最后dp[k]需要求的值就是dp[i - 1][q[hh]] + (k - q[hh]) / v * w
 */
 
 int main(){
