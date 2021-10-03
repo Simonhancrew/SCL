@@ -5,8 +5,9 @@
 //这个状态标识背包的承重
 
 using namespace std;
-
 const int N = 1e3 + 10;
+
+#if 0
 int w[N],v[N];
 int dp[N][N];
 
@@ -65,4 +66,21 @@ int main(){
     }
     cout << f[m] << endl;
     return 0;
+}
+#endif
+
+// 最后其实发现物品的重量和价值其实可以放到循环的内部读取
+int n,m,dp[N];
+
+int main()
+{
+    cin >> n >> m;
+    for(int i = 1;i <= n;i++){
+        int v,w;
+        cin >> v >> w;
+        for(int j = m;j >= v;j--){
+            dp[j] = max(dp[j],dp[j - v] + w);
+        }
+    }
+    cout << dp[m] << endl;
 }
