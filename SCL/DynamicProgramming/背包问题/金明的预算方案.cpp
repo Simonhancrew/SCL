@@ -29,6 +29,7 @@ int main()
     }
     
     for(int i = 1;i <= m;i++){
+        if(master[i].first == 0) continue;
         for(int j = n;j >= 0;j--){
             for(int k = 0;k < 1 << slave[i].size();k++){
                 int v = master[i].first,w = master[i].second;
