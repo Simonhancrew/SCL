@@ -18,3 +18,11 @@ type Node struct {
 	Next   *Node
 	Random *Node
 }
+
+/*
+to construct a struct
+user := User{}
+or details
+user := User{Name: ,Age:......}
+
+*/
