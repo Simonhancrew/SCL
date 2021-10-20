@@ -60,7 +60,7 @@ int main(){
     for(int i = 0;i < n;i++){
         int v,w,s;
         cin >> v >> w >> s;
-        for(int k = 1;k <= s;k *= 3){
+        for(int k = 1;k <= s;k *= 2){
             for(int j = m;j >= k * v;j--){
                 dp[j] = max(dp[j],dp[j - k * v] + k * w);
             }
