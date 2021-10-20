@@ -11,6 +11,7 @@
 using namespace std;
 
 const int N = 23000,M = 2e3 + 10;
+#if 0
 int v[N],w[N];
 int dp[M];
 
@@ -46,4 +47,30 @@ int main()
     }
     cout << dp[m] << endl;
     return 0;
+}
+#endif
+
+int dp[N];
+int n,m;
+
+// 在输入的时候顺便做,就是把物品拆分，单个更大的体积
+
+int main(){
+    cin >> n >> m;
+    for(int i = 0;i < n;i++){
+        int v,w,s;
+        cin >> v >> w >> s;
+        for(int k = 1;k <= s;k *= 3){
+            for(int j = m;j >= k * v;j--){
+                dp[j] = max(dp[j],dp[j - k * v] + k * w);
+            }
+            s -= k;
+        }
+        if(s){
+            for(int j = m;j >= s * v;j--){
+                dp[j] = max(dp[j],dp[j - s * v] + s * w);
+            }
+        }
+    }
+    cout << dp[m] << endl;
 }
