@@ -51,7 +51,7 @@
 
 ### [random](SCL/Random/)
 
-+ 随机处理
++ Knuth-shuffle
 
 ### [Search](SCL/Search/)
 
@@ -60,7 +60,8 @@
 
 ### [Sort](SCL/Sort/)
 
-常见排序算法
++ quicksort
++ mergesort
 
 ### [string](SCL/String/)
 
@@ -73,17 +74,17 @@
 
 ### [Dynamic Programming](SCL/DynamicProgramming)
 
-+ 背包模型
-+ [线性dp]()
-    + [数字三角模型]()
-    + [最长上升子序列]()
-    + 最长公共子序列
++ [背包模型](SCL/DynamicProgramming/背包问题)
++ [线性dp](SCL/DynamicProgramming)
+    + [数字三角模型](SCL/DynamicProgramming)
+    + [最长上升子序列](SCL/DynamicProgramming)
+    + [最长公共子序列](SCL/DynamicProgramming)
     
-+ 区间dp模型
-+ 计数dp
-+ 状压dp
-+ 树形dp
-+ 记忆化搜索
++ [区间dp模型](SCL/DynamicProgramming)
++ [计数dp](SCL/DynamicProgramming)
++ [状压dp](SCL/DynamicProgramming)
++ [树形dp](SCL/DynamicProgramming)
++ [记忆化搜索](SCL/DynamicProgramming)
 
 
 ## 从数据范围反推算法的技巧
