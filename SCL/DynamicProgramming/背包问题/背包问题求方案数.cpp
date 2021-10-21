@@ -14,6 +14,8 @@ int n,m;
 int main(){
     cin >> n >> m;
     g[0] = 1;
+    memset(f,-0x3f,sizeof f);
+    f[0] = 0;
     for(int i = 0;i < n;i++){
         int v,w;
         cin >> v >> w;
