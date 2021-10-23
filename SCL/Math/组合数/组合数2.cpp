@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstring>
+#include <algorithm>
 
 //处理出来阶乘，然后利用乘法逆元去运算
 
@@ -30,10 +32,13 @@ int main(){
     }
     int n;
     cin >> n;
+    auto C = [](int a,int b) {
+        return (LL)fact[a] * infact[b] % mod * infact[a - b] % mod; 
+    };
     while(n --){
-        int a,b;
+        LL a,b;
         scanf("%d%d",&a,&b);
-        printf("%d\n",(LL)fact[a] * infact[b] % mod * infact[a - b] % mod);
+        printf("%d\n",C(a,b));
     }
     return 0;
 }
