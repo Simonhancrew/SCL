@@ -1,46 +1,39 @@
 #include <iostream>
 #include <cstring>
 #include <algorithm>
-#include <vector>
 
 using namespace std;
 
 const int N = 2e5 + 10;
 
-typedef pair<int, int> PII;
+int n,m;
+int a[N],b[N],cnt[N];
 
-PII r[N];
-vector<int> mp[N];
-int res[N];
-int b[N];
+// 判断多少比展示小且关系不和的就行
+// 二分的找到有多少比当前战士的战斗力小
 
 int main(){
-    int n,k;
-    cin >> n >> k;
-    for(int i = 1;i <= n;i++){
-        cin >> r[i].second;
-        b[i] = r[i].second;
-        r[i].first = i;
+    cin.sync_with_stdio(false);
+    cin >> n >> m;
+    for(int i = 1;i <= n;i++) {
+        cin >> a[i];
+        b[i] = a[i];
     }
-    sort(r + 1,r + n + 1,[](auto lhs,auto rhs) {
-        return lhs.second < rhs.second;
-    });
-    while(k--){
+    sort(b + 1,b + n + 1);
+    while(m--){
         int x,y;
         cin >> x >> y;
-        mp[x].push_back(y);
-        mp[y].push_back(x);
+        if(a[x] > a[y]) cnt[x]++;
+        else if(a[x] < a[y]) cnt[y]++;
     }
-    int lst = 0;
     for(int i = 1;i <= n;i++){
-        int ans = lst;
-        int cur = r[i].first;
-        for(auto q : mp[cur]) {
-            if(b[q] < r[i].second) ans--;
+        int l = 1,r = n;
+        while(l < r){
+            int mid = l + r >> 1;
+            if(a[i] <= b[mid]) r = mid;
+            else l = mid + 1;
         }
-        if(r[i].second != r[i + 1].second) lst = i;
-        res[cur] = ans;
+        cout << r - 1 - cnt[i] << ' ';
     }
-    for(int i = 1;i <= n;i++) cout << res[i] << ' ';
-    puts("");
+    return 0;
 }
