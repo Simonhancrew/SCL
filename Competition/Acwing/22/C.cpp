@@ -31,6 +31,7 @@ int qmi(int a, int k, int p)  // 求a^k mod p
 
 int main(){
     int n,m;
+    cin.sync_with_stdio(false);
     cin >> n >> m;
     int a = 2 * m + n - 1,b = n - 1;
     fact[0] = 1,infact[0] = 1;
