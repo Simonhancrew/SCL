@@ -3,6 +3,7 @@
 #include <unordered_map>
 using namespace std;
 //单调栈
+#if 0
 class Solution {
 public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
@@ -28,6 +29,31 @@ public:
         for (auto num1 : nums1)
             ans.emplace_back(aMap[num1]);
 
+        return ans;
+    }
+};
+#endif
+// 先用单调栈建立每个数右边比他大的第一个数之后哈希映射
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> lb(nums2.size());
+        stack<int> stk;
+        for(int i = nums2.size() - 1;i >= 0;i--){
+            int t = nums2[i];
+            while(stk.size() && t >= stk.top()) stk.pop();
+            if(stk.empty()) lb[i] = -1;
+            else lb[i] = stk.top();
+            stk.push(t);
+        }
+        unordered_map<int,int> mp;
+        for(int i = 0;i < nums2.size();i++){
+            mp[nums2[i]] = i;
+        }
+        vector<int> ans(nums1.size());
+        for(int i = 0;i < nums1.size();i++){
+            ans[i] = lb[mp[nums1[i]]];
+        }
         return ans;
     }
 };
