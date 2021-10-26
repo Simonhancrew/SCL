@@ -11,14 +11,15 @@ const int N = 1e5 + 10;
 //这样判断是否为空直接看tt是否为0就可以了
 //stk[++t] = x
 int stk[N],tt;
-
+int a[N];
 
 int main(){
     int n;
+    cin.sync_with_stdio(false);
     cin >> n;
+    for(int i = 0;i <= n;i++) cin >> a[i];
     for(int i = 0;i < n;i++){
-        int x;
-        cin >> x;
+        int x = a[i];
         while(tt && stk[tt] >= x) tt--;
         if(tt) cout << stk[tt] << ' ';
         else cout << -1 <<' ';
