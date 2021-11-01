@@ -92,6 +92,11 @@
 
 + [LeetCode](Leetcode/)
 
+### 周赛
+
++ [Leetcode](Competition/Leetcode/)
++ [CodeForces](CodeForces/)
+
 ## 从数据范围反推算法的技巧
 
 一般ACM或者笔试题的时间限制是1秒或2秒。
