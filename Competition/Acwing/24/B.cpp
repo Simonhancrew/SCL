@@ -33,10 +33,11 @@ int main(){
     st.insert({x2,y2});
     int res = 0;
     for(int i = 0;i < 8;i++){
-        if(i == x1 || i == x2) continue;
+        if(i == x1) continue;
         for(int j = 0;j < 8;j++){
+            if(j == y1) continue;
             if(check(i,j)) res++;
         }
     }
-    cout << res << endl;
+    cout << res - 1 << endl;
 }

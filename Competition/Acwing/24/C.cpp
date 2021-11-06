@@ -16,6 +16,13 @@ int n,m,u;
 int p[N],a[N],b[N];
 int st[N];
 
+// pop从尾部pop的
+struct cmp{
+    bool operator() (PII &lhs,PII &rhs) {
+        return lhs.x < rhs.x;
+    }
+};
+
 int main(){
     // freopen("input.txt","r",stdin);
     ios::sync_with_stdio(false);
@@ -24,10 +31,8 @@ int main(){
     for(int i = 0;i < n;i++) cin >> p[i];
     for(int i = 0;i < n;i++) cin >> a[i];
     for(int i = 0;i < n;i++) cin >> b[i];
-    auto cmp = [](PII lhs,PII rhs) {
-        return lhs.x > rhs.x;
-    };
-    vector<priority_queue<PII,vector<PII>,decltype(cmp)>> q(3,priority_queue<PII,vector<PII>,decltype(cmp)>(cmp));
+    
+    priority_queue<PII,vector<PII>,cmp> q[3];
     for(int i = 0;i < n;i++){
         --a[i],--b[i];
         q[a[i]].push({p[i], i});
