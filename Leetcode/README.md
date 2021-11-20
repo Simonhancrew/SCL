@@ -9,6 +9,4 @@ My Leetcode Solutions
 
 + [golang](./sbgo)
 
-+ [c#](./CS)
-
-+ [kotlin](./Kotlin)
++ [JS](./JS)
