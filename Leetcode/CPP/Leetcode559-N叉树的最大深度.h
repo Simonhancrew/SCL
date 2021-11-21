@@ -4,23 +4,13 @@ using namespace std;
 
 class Solution {
 public:
-    int getMaxdep(Node* root){
-        if(root == nullptr) return 0;
-        int n = root->children.size();
-        //当前层高为1
-        int maxDepth = 1;
-        for(int i = 0;i<n;i++){
-            int curdepth = getMaxdep(root->children[i])+1;
-            if(curdepth>maxDepth){
-                maxDepth = curdepth;
-            }
-        }
-        return maxDepth;
-    }
     int maxDepth(Node* root) {
-        if(root == nullptr) return 0;
-        auto res = getMaxdep(root);
-        return res;
+        if(!root) return 0;
+        int t = 0;
+        for(auto node : root->children){
+            t = max(t,maxDepth(node));
+        }
+        return 1 + t;
     }
 };
 
