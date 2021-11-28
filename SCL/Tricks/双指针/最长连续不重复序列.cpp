@@ -7,6 +7,7 @@ int a[N],r[N];
 
 
 //枚举区间右端点,对于每一个右端点去找他的最左端点
+
 int main(){
     int n;
     scanf("%d",&n);
@@ -27,3 +28,15 @@ int main(){
     cout << ans;
     return 0;
 }
+
+/*
+    一个可以参考的模板，其中右端点是j，左端点是i
+    for(int i = 0,j = 0,...;j < n;j++){
+        update(j);
+        if(j - i + 1 == size){
+            check(i,j);
+            erase(i);
+            i++;
+        }
+    }
+*/
