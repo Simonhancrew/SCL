@@ -30,13 +30,13 @@ int main(){
 }
 
 /*
-    一个可以参考的模板，其中右端点是j，左端点是i
+    一个可以参考的模板
     for(int i = 0,j = 0,...;j < n;j++){
-        update(j);
-        if(j - i + 1 == size){
-            check(i,j);
-            erase(i);
-            i++;
+        update(state(i,j)); // 更新(i,j)区间中能得出的状态
+        while(i < j && length(i,j)){ // 长度满足题目范围
+            check(state(i,j)) dosomething; // 状态满足条件更新结论
+            update(state(i + 1,j)); // 更新状态
+            i++; // 缩减左边
         }
     }
 */
