@@ -1,3 +1,7 @@
+/*
+    一个贪心的思路就是先吃容易坏的，只要考虑到如何顺序的吃腐烂时间最近的一批
+    可以考虑用一个最小堆维护这批苹果
+*/
 class Solution {
 public:
     typedef pair<int,int> PII;
