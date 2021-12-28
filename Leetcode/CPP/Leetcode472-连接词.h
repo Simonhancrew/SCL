@@ -3,6 +3,19 @@
 
 using namespace std;
 
+/*  
+    这里需要注意的就是字符串哈希的优化和dp划分型枚举方式
+    for i in 0..n:
+        if !f[i]: continue 
+        for j in i + 1..n:
+            do()
+    f[i]是前i个单词是否拼接构成。
+    首先将所有的str插入哈希表，顺便算字符串哈希.
+    随后根据i来划分字符串,初始的时候f[0] = 1,其余位置都非法
+    随后按照f[1,i],[i + 1,j]来判断f[j]是否是一个拼接词
+    当i > 0的时候,还需要判断全串是否是一个拼接词,是的话可以提前结束
+*/
+
 using ULL = unsigned long long;
 const int p = 13331;
 class Solution {
