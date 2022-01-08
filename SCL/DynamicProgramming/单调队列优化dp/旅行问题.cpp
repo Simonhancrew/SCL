@@ -49,7 +49,7 @@ int main(){
         if(hh <= tt && q[hh] <= i - n) hh++;
         while(hh <= tt && s[q[tt]] >= s[i]) tt--;
         q[++tt] = i;
-        if(i >= n) {
+        if(i >= n + 1) {
             if(s[q[hh]] >= s[i + 1]) ans[i - n] = true;
         }
     }
