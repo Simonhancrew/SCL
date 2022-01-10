@@ -14,6 +14,8 @@ using namespace std;
 
 const int N = 1e3 + 10,INF = 0x3f3f3f3f;
 
+#define fast_cin() ios::sync_with_stdio(false);cin.tie(0);cout.tie(0)
+
 int q[N],w[N][N];
 int row_max[N][N],row_min[N][N];
 int n,m,k;
@@ -39,6 +41,7 @@ void get_min(int a[],int b[],int cnt){
 }
 
 int main(){
+    fast_cin();
     cin >> n >> m >> k;
     for(int i = 1;i <= n;i++) {
         for(int j = 1;j <= m;j++){
