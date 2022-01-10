@@ -85,6 +85,7 @@
 + [状压dp](SCL/DynamicProgramming)
 + [树形dp](SCL/DynamicProgramming)
 + [记忆化搜索](SCL/DynamicProgramming)
++ [单调队列优化dp](SCL/DynamicProgramming)
 
 ## Solutions
 
