@@ -37,7 +37,7 @@ typedef pair<int, PII> PIII;
 #define x first
 #define y second
 
-const int N = 1e3 + 10,M = 2e5 + 10;
+const int N = 1e3 + 10,M = 2e5 + 10,INF = 0x3f3f3f3f;
 
 int n,m;
 int h[N],rh[N],e[M],ne[M],w[M],idx;
@@ -74,6 +74,7 @@ void dijstra(){
 }
 
 int astar(){
+    if(dist[S] == INF) return -1;// 保证有解
     priority_queue<PIII,vector<PIII>,greater<PIII>> heap;
     heap.push({dist[S],{0,S}});
     while(heap.size()) {
