@@ -57,7 +57,11 @@
 
 + 整数二分和浮点数2分
 + Flood Fill
-+ todo:多源BFS，双向BFS，A*，双向DFS，IDA\*
++ A*
++ 多源BFS
++ 双向BFS
++ 双端队列BFS
++ todo：IDA\*
 
 ### [Sort](SCL/Sort/)
 
