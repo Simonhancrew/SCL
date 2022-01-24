@@ -43,7 +43,6 @@ int main(){
     }
     //dfs(0,1);
     for(int i = 0;i < (1 << 7);i++) {
-        int sum = 1;
         for(int j = 0;j < 7;j++) {
             rec[s[j]] = (i >> j) & 1;
         }
