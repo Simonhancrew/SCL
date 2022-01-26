@@ -101,16 +101,6 @@
     ├── 区间合并
     └── 双指针
 ```
-## Solutions
-
-+ [CodeForces](CodeForces/)
-
-+ [LeetCode](Leetcode/)
-
-## [Competition](Competition/README.md)
-
-+ [Leetcode](Competition/Leetcode/)
-+ [CodeForces](CodeForces/)
 
 ## Reference
 
