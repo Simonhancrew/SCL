@@ -29,8 +29,8 @@ bool dfs(int u,int depth) {
             if(s > n) continue; // 可行剪枝
             if(s <= w[u - 1] || st[s]) continue; // w应满足底层且没出现过
 
-            st[s] = true;
-            w[u] = s;
+            st[s] = true; // 这里不是状态的一部分（当前两个for循环下s的判重）
+            w[u] = s; // 可以不用恢复现场，因为下次搜索的时候被覆盖了
             if(dfs(u + 1,depth)) return true;
         }
     }
