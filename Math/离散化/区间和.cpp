@@ -29,18 +29,22 @@ using namespace std;
 */
 
 
-
-//值域很大，需要的数狠稀疏
-//做一下离散化
+/*
+    给出的数据范围极大，但是实际可行范围小很多
+    可以针对可行范围对整体范围做一个离散化
+*/
 vector<int> all;//需要用到的实际坐标值
-const int N = 3 * 1e5 + 10;//插入一个坐标，查找两个左边，乘数据范围然后 + 10
-int a[N],s[N];//a是映射数组，存储的值是前n次输入加的值
-
-//简单的讲就是all存的是数组的坐标，a存的是实际的值，利用实际需要的all中的数值，做离散，最后需要的就是a
+const int N = 3e5 + 10; // add一个， l + r两个
+int a[N],s[N];//a是映射数组，前n次add的值离散化到a中
 
 typedef pair<int,int> PII;
 vector<PII> add,query;//前几次的插入操作和查询操作
 
+/*
+    find的关键，找到add或者query的实际坐标值在a中的映射
+    这些数最后离散的下标就是[0,all.size() - 1]
+    返还这个映射值
+*/
 int find(int x){
     int l = 0,r = all.size() - 1;
     while(l < r){
@@ -78,7 +82,6 @@ int main(){
         int x = find(item.first);
         a[x] += item.second;
     }
-    //拿到前缀和
     for(int i = 1;i <= all.size();i++) s[i] = s[i-1] + a[i];
     //查询的处理
     for(auto &item:query){
@@ -87,7 +90,6 @@ int main(){
     }
     return 0;
 }
-
 
 
 vector<int>::iterator unique(vector<int> &input){
