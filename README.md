@@ -24,6 +24,7 @@
 │   ├── 跳表
 │   └── 链表
 ├── DynamicProgramming
+│   ├── RMQ
 │   ├── 区间dp
 │   ├── 单调队列优化dp
 │   ├── 数位统计dp
