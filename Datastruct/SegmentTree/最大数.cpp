@@ -19,7 +19,7 @@ int m,p;
 */ 
 struct Node{
     int l,r;
-    int v;
+    int v; // 区间[l,r]的最大值
 }tr[N * 4];
 
 /*
