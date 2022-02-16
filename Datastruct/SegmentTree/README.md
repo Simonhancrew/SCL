@@ -37,3 +37,62 @@ int getsum(int l, int r, int s, int t, int p) {
   return sum;
 }
 ```
+
+区间修改的时候，当需要区间分裂的时候一定记得把lazy tag往下传，通过延迟对节点信息的更改，从而减少可能不必要的操作次数。当区间修改的时候，一次最多修改[l,r]全部的节点，这个复杂度是无法接受的。通过打标记的方法表明该节点对应的区间在某一次操作中被更改，但不更新该节点的子节点的信息。实质性的修改则在下一次访问带有标记的节点时才进行
+
+```cpp
+struct Node
+{
+    int l,r;
+    int add;
+    LL sum;
+}tr[N * 4];
+
+void pushup(int u) 
+{
+    tr[u].sum = tr[u << 1].sum + tr[u << 1 | 1].sum;
+}
+
+void pushdown(int u)
+{
+    Node &root = tr[u],&lhs = tr[u << 1],&rhs = tr[u << 1 | 1];
+    if(root.add)
+    {
+        lhs.add += root.add,lhs.sum += (LL)(lhs.r - lhs.l + 1) * root.add;
+        rhs.add += root.add,rhs.sum += (LL)(rhs.r - rhs.l + 1) * root.add;
+        root.add = 0;
+    }
+}
+
+void modify(int u,int l,int r,int d)
+{
+    if(tr[u].l >= l && tr[u].r <= r)
+    {
+        tr[u].sum += (LL)(tr[u].r - tr[u].l + 1) * d;
+        tr[u].add += d;
+    }
+    else
+    {
+        pushdown(u);
+        int mid = tr[u].l + tr[u].r >> 1;
+        if(l <= mid) modify(u << 1,l,r,d);
+        if(r > mid) modify(u << 1 | 1,l,r,d);
+        pushup(u);
+    }
+}
+
+LL query(int u,int l,int r)
+{
+    if(tr[u].l >= l && tr[u].r <= r) return tr[u].sum;
+    pushdown(u);
+    int mid = tr[u].l + tr[u].r >> 1;
+    LL sum = 0;
+    if(l <= mid) sum += query(u << 1,l,r);
+    if(r > mid) sum += query(u << 1 | 1,l,r);
+    return sum;
+}
+```
+
+
+最后有一个关于seg tree的优化,在叶子节点处无需下放懒标记，所以懒标记可以不下传到叶子节点。
+
