@@ -59,16 +59,15 @@ import(
     ."fmt"
 )
 
-var a,b,x,y int
+var a,b int
 
-func ex_gcd(a,b int,x,y *int) int {
+func ex_gcd(a,b int) (gcd,x,y int) {
     if b == 0 {
-        *x,*y = 1,0
-        return a
+        return a,1,0
     }
-    gcd := ex_gcd(b,a % b,y,x)
-    *y -= a / b * (*x)
-    return gcd
+    gcd,y,x = ex_gcd(b,a % b)
+    y -= a / b * x
+    return
 }
 
 
@@ -78,7 +77,7 @@ func main(){
     defer out.Flush()
     Fscan(in,&a,&b)
 
-    ex_gcd(a,b,&x,&y)
+    _,x,_ := ex_gcd(a,b,&x,&y)
 
     Fprintln(out,(x % b + b) % b)
 }
