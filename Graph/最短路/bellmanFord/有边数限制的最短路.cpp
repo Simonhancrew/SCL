@@ -13,16 +13,21 @@
 
 using namespace std;
 
-const int N = 510,M = 1e4 + 10;
+const int N = 510,M = 1e4 + 10,INF = 0x3f3f3f3f;
 
 struct Edge{
     int a,b,w;
 }edge[M];
 
+struct ed {
+    int v,w;
+};
+vector<ed> e[N];
+
 int n,m,k;
 int dist[N],backup[N];
 
-//
+// 按边松弛
 int bellman_ford(){
     memset(dist,0x3f,sizeof dist);
     dist[1] = 0;
@@ -39,6 +44,27 @@ int bellman_ford(){
     //可能存在负权边，找一个很大的数  
     if(dist[n] > 0x3f3f3f3f / 2) return -1;
     return dist[n];
+}
+
+// 按点松弛BELLMANFORD
+bool bellmanford(){
+    dist[1] = 0;
+    bool flag = false;
+    for(int i = 0;i < n;i++){
+        flag = false;
+        for(int u = 1;u <= n;u++) {
+            if(dist[u] == INF) continue;
+            for(auto ed : e[u]) {
+                int v = ed.v,w = ed.w;
+                if(dist[v] > dist[u] + w) {
+                    dist[v] = dist[u] + w;
+                    flag = true;
+                }
+            }
+        }
+        if(!flag) break;
+    }
+    return flag;
 }
 
 
