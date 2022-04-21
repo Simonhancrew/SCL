@@ -18,12 +18,8 @@ using namespace std;
 typedef long long LL;
 typedef pair<int, int> PII;
 
-#define PASSCLOSOURES
-
 const int N = 30;
 
-// 传递闭包的做法
-#ifdef PASSCLOSOURES
 int n, m;
 bool g[N][N], d[N][N];
 bool st[N];
@@ -88,6 +84,8 @@ char get_min()
     }
 }
 
+// 传递闭包的做法
+#ifdef PASSCLOSOURES
 int main()
 {
     while (cin >> n >> m, n || m)
@@ -125,3 +123,56 @@ int main()
     return 0;
 }
 #endif
+/*
+    增量更新的做法，因为每次只会增加一条边，所以可以只关注增加边
+    两端节点的可更新边
+*/
+int main()
+{
+    while (cin >> n >> m, m || n)
+    {
+        int type = 0, tail = 0;
+        memset(d, 0, sizeof d);
+        for (int i = 1; i <= m; i++)
+        {
+            char str[5];
+            cin >> str;
+            int a = str[0] - 'A', b = str[2] - 'A';
+
+            if (!type)
+            {
+                d[a][b] = 1;
+                for (int x = 0; x < n; x++)
+                {
+                    if (d[x][a])
+                        d[x][b] = 1;
+                    if (d[b][x])
+                        d[a][x] = 1;
+                    for (int y = 0; y < n; y++)
+                    {
+                        if (d[x][a] && d[b][y])
+                            d[x][y] = 1;
+                    }
+                }
+                type = check();
+                if (type)
+                    tail = i;
+            }
+        }
+        if (!type)
+            cout << "Sorted sequence cannot be determined." << endl;
+        else if (type == 2)
+            printf("Inconsistency found after %d relations.\n", tail);
+        else
+        {
+            printf("Sorted sequence determined after %d relations: ", tail);
+            memset(st, 0, sizeof st);
+            for (int i = 0; i < n; i++)
+            {
+                cout << get_min();
+            }
+            cout << '.' << endl;
+        }
+    }
+    return 0;
+}
