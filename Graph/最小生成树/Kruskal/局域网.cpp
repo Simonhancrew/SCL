@@ -64,3 +64,65 @@ int main()
 
     return 0;
 }
+
+// Golang version
+/*
+package main
+
+import (
+    "os"
+    "bufio"
+    ."fmt"
+    "sort"
+)
+
+const (
+    N = 110
+    M = 210
+)
+
+type edge struct {
+    u,v,w int
+}
+
+var n,m int
+
+func main() {
+    in := bufio.NewReader(os.Stdin)
+    out := bufio.NewWriter(os.Stdout)
+    defer out.Flush()
+
+    Fscan(in,&n,&m)
+    e,p := make([]edge,m),make([]int,n + 1)
+    for i := 1;i <= n;i++ {
+        p[i] = i
+    }
+
+    var find func(int) int
+    find = func(x int) int {
+        if p[x] != x {
+            p[x] = find(p[x])
+        }
+        return p[x]
+    }
+
+    for i := 0;i < m;i++ {
+        Fscan(in,&e[i].u,&e[i].v,&e[i].w)
+    }
+    sort.Slice(e,func(i,j int) bool {
+        return e[i].w < e[j].w
+    })
+
+    res := 0
+    for i := 0;i < m;i++ {
+        u,v,w := e[i].u,e[i].v,e[i].w
+        u,v = find(u),find(v)
+        if u != v {
+            p[u] = v
+        }else {
+            res += w
+        }
+    }
+    Fprintln(out,res)
+}
+*/
