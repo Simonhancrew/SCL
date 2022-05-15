@@ -58,7 +58,7 @@ public:
         if (rhs == nullptr)
             rhs = new CountIntervals(mid + 1, r);
 
-        if (sum == r - l + 1)
+        if (sum == r - l + 1) // 下放，lazy修改
         {
             lhs->fill();
             rhs->fill();
