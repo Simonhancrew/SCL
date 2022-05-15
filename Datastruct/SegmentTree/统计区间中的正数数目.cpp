@@ -47,6 +47,8 @@ public:
 
     void add(int L, int R)
     {
+        if (sum == r - l + 1)
+            return; // 当前区间完全覆盖，没必要往下了
         if (L <= l && r <= R)
         {
             fill();
@@ -58,11 +60,11 @@ public:
         if (rhs == nullptr)
             rhs = new CountIntervals(mid + 1, r);
 
-        if (sum == r - l + 1) // 下放，lazy修改
-        {
-            lhs->fill();
-            rhs->fill();
-        }
+        // if (sum == r - l + 1) // 下放，lazy修改
+        // {
+        //     lhs->fill();
+        //     rhs->fill();
+        // }
 
         if (L <= mid)
             lhs->add(L, R);
