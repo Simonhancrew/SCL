@@ -20,26 +20,25 @@ typedef pair<int, int> PII;
     cin.tie(nullptr);                 \
     cout.tie(nullptr)
 
-const int INF = 0x3f3f3f3f, N = 110;
+const int INF = 0x3f3f3f3f, N = 310;
 
 int n, m, k;
+bool g[N][N], st[N];
 int match[N];
-bool st[N], g[N][N];
 
 bool find(int x)
 {
-    for (int i = 1; i < m; i++)
-    {
+    for (int i = n + 1; i < n + m; i++)
         if (!st[i] && g[x][i])
         {
             st[i] = true;
-            if (match[i] == 0 || find(match[i]))
+            if (match[i] == -1 || find(match[i]))
             {
                 match[i] = x;
                 return true;
             }
         }
-    }
+
     return false;
 }
 
@@ -50,23 +49,23 @@ int main()
     fast_cin();
     while (cin >> n, n)
     {
-        memset(match, 0, sizeof match);
+        memset(match, -1, sizeof match);
         memset(g, 0, sizeof g);
         cin >> m >> k;
         while (k--)
         {
-            int t, a, b;
-            cin >> t >> a >> b;
+            int a, b, c;
+            cin >> c >> a >> b;
             if (!a || !b)
                 continue;
-            g[a][b] = true;
+            g[a][b + n] = true;
         }
         int res = 0;
         for (int i = 1; i < n; i++)
         {
             memset(st, 0, sizeof st);
             if (find(i))
-                ++res;
+                res++;
         }
         cout << res << endl;
     }
