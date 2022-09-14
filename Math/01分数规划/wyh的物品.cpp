@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/04/29
 
@@ -22,10 +22,10 @@ using namespace std;
 
 typedef long long LL;
 typedef pair<int, int> PII;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 #define x first
 #define y second
@@ -39,42 +39,34 @@ PDD p[N];
 double d[N];
 int n, k;
 
-bool check(double mid)
-{
-    for (int i = 0; i < n; i++)
-    {
-        d[i] = p[i].y - p[i].x * mid;
-    }
-    sort(d, d + n, [](double l, double r)
-         { return l > r; });
-    double sum = 0;
-    for (int i = 0; i < k; i++)
-    {
-        sum += d[i];
-    }
-    return sum >= 0;
+bool check(double mid) {
+  for (int i = 0; i < n; i++) {
+    d[i] = p[i].y - p[i].x * mid;
+  }
+  sort(d, d + n, [](double l, double r) { return l > r; });
+  double sum = 0;
+  for (int i = 0; i < k; i++) {
+    sum += d[i];
+  }
+  return sum >= 0;
 }
 
-int main()
-{
-    fast_cin();
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        cin >> n >> k;
-        for (int i = 0; i < n; i++)
-            cin >> p[i].x >> p[i].y;
-        double l = 0, r = 1e6;
-        while (r - l > eps)
-        {
-            double mid = (r + l) / 2;
-            if (check(mid))
-                l = mid;
-            else
-                r = mid;
-        }
-        printf("%.2f\n", l);
+int main() {
+  fast_cin();
+  int t;
+  cin >> t;
+  while (t--) {
+    cin >> n >> k;
+    for (int i = 0; i < n; i++) cin >> p[i].x >> p[i].y;
+    double l = 0, r = 1e6;
+    while (r - l > eps) {
+      double mid = (r + l) / 2;
+      if (check(mid))
+        l = mid;
+      else
+        r = mid;
     }
-    return 0;
+    printf("%.2f\n", l);
+  }
+  return 0;
 }

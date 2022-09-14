@@ -17,16 +17,15 @@ public:
 };
 #endif
 
-
 // 其实还有更好的做法，其实是一个状态机的思路，具体推一下就可以了
 class Solution {
-public:
-    int findNumberAppearingOnce(vector<int>& nums) {
-        int one = 0,two = 0;
-        for(auto x : nums){
-            one = (one ^ x) & ~two;
-            two = (two ^ x) & ~one;
-        }
-        return one;
+ public:
+  int findNumberAppearingOnce(vector<int>& nums) {
+    int one = 0, two = 0;
+    for (auto x : nums) {
+      one = (one ^ x) & ~two;
+      two = (two ^ x) & ~one;
     }
+    return one;
+  }
 };

@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/04/27
 
@@ -15,10 +15,10 @@ using namespace std;
 
 typedef long long LL;
 typedef pair<int, int> PII;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 const int INF = 0x3f3f3f3f, N = 110;
 
@@ -26,41 +26,31 @@ int n;
 int g[N][N], d[N];
 bool st[N];
 
-int prim()
-{
-    memset(d, 0x3f, sizeof d);
-    d[1] = 0; // 可以不初始化值，因为i == 0的时候不更新res，写法可以等价
-    int res = 0;
-    for (int i = 0; i < n; i++)
-    {
-        int t = -1;
-        for (int j = 1; j <= n; j++)
-        {
-            if (!st[j] && (t == -1 || d[t] > d[j]))
-                t = j;
-        }
-        st[t] = true;
-        if (i && d[t] == INF)
-            return INF;
-        if (i)
-            res += d[t];
-        for (int j = 1; j <= n; j++)
-            d[j] = min(d[j], g[t][j]);
+int prim() {
+  memset(d, 0x3f, sizeof d);
+  d[1] = 0;  // 可以不初始化值，因为i == 0的时候不更新res，写法可以等价
+  int res = 0;
+  for (int i = 0; i < n; i++) {
+    int t = -1;
+    for (int j = 1; j <= n; j++) {
+      if (!st[j] && (t == -1 || d[t] > d[j])) t = j;
     }
-    return res;
+    st[t] = true;
+    if (i && d[t] == INF) return INF;
+    if (i) res += d[t];
+    for (int j = 1; j <= n; j++) d[j] = min(d[j], g[t][j]);
+  }
+  return res;
 }
 
-int main()
-{
-    fast_cin();
-    cin >> n;
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= n; j++)
-        {
-            cin >> g[i][j];
-        }
+int main() {
+  fast_cin();
+  cin >> n;
+  for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= n; j++) {
+      cin >> g[i][j];
     }
-    cout << prim() << endl;
-    return 0;
+  }
+  cout << prim() << endl;
+  return 0;
 }

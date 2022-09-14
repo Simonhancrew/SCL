@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/03/25
 
@@ -18,38 +18,38 @@ using namespace std;
 
 const int N = 2e3 + 10;
 
-int n,m;
-double g[N][N],d[N];
+int n, m;
+double g[N][N], d[N];
 bool st[N];
-int s,t;
+int s, t;
 
 void dijstra() {
-    d[s] = 1;
-    for(int i = 0;i < n;i++) {
-        int tmp = -1;
-        for(int j = 1;j <= n;j++) {
-            if(!st[j] && (tmp == -1 || d[j] > d[tmp])) {
-                tmp = j;
-            }
-        }
-        st[tmp] = true;
-        for(int j = 1;j <= n;j++) {
-            d[j] = max(d[j],d[tmp] * g[tmp][j]);
-        }
+  d[s] = 1;
+  for (int i = 0; i < n; i++) {
+    int tmp = -1;
+    for (int j = 1; j <= n; j++) {
+      if (!st[j] && (tmp == -1 || d[j] > d[tmp])) {
+        tmp = j;
+      }
     }
+    st[tmp] = true;
+    for (int j = 1; j <= n; j++) {
+      d[j] = max(d[j], d[tmp] * g[tmp][j]);
+    }
+  }
 }
 
-int main(){
-    cin >> n >> m;
-    for(int i = 0;i < m;i++) {
-        int x,y,z;
-        cin >> x >> y >> z;
-        double dis = (100.0 - z) / 100;
-        g[x][y] = g[y][x] = max(dis,g[x][y]); 
-    }
-    cin >> s >> t;
-    dijstra();
+int main() {
+  cin >> n >> m;
+  for (int i = 0; i < m; i++) {
+    int x, y, z;
+    cin >> x >> y >> z;
+    double dis = (100.0 - z) / 100;
+    g[x][y] = g[y][x] = max(dis, g[x][y]);
+  }
+  cin >> s >> t;
+  dijstra();
 
-    printf("%.8lf\n",100 / d[t]);
-    return 0;
+  printf("%.8lf\n", 100 / d[t]);
+  return 0;
 }

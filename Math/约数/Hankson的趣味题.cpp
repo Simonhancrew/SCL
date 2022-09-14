@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/03/15
 
@@ -20,10 +20,10 @@ using namespace std;
 */
 
 typedef long long LL;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 const int N = 5e4 + 10;
 
@@ -32,87 +32,64 @@ bool st[N];
 int n, a, b, c, d;
 int fcnt, dcnt;
 int divisor[1601];
-struct Factor
-{
-    int p, s;
+struct Factor {
+  int p, s;
 } factor[10];
 
-int gcd(int a, int b)
-{
-    return b ? gcd(b, a % b) : a;
+int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
+
+int lcm(int a, int b) { return (LL)a * b / gcd(a, b); }
+
+void get_primes(int n) {
+  for (int i = 2; i <= n; i++) {
+    if (!st[i]) primes[cnt++] = i;
+    for (int j = 0; primes[j] <= n / i; j++) {
+      st[primes[j] * i] = true;
+      if (i % primes[j] == 0) break;
+    }
+  }
 }
 
-int lcm(int a, int b)
-{
-    return (LL)a * b / gcd(a, b);
+void dfs(int u, int p) {
+  if (u == fcnt) {
+    divisor[dcnt++] = p;
+    return;
+  }
+  for (int i = 0; i <= factor[u].s; i++) {
+    dfs(u + 1, p);
+    p *= factor[u].p;
+  }
 }
 
-void get_primes(int n)
-{
-    for (int i = 2; i <= n; i++)
-    {
-        if (!st[i])
-            primes[cnt++] = i;
-        for (int j = 0; primes[j] <= n / i; j++)
-        {
-            st[primes[j] * i] = true;
-            if (i % primes[j] == 0)
-                break;
-        }
+int main() {
+  fast_cin();
+  get_primes(N - 1);
+  cin >> n;
+  while (n--) {
+    cin >> a >> b >> c >> d;
+    fcnt = 0;
+    int t = d, res = 0;
+    for (int i = 0; primes[i] <= t / primes[i]; i++) {
+      int p = primes[i];
+      if (t % p) continue;
+      int s = 0;
+      while (t % p == 0) {
+        s++, t /= p;
+      }
+      factor[fcnt++] = {p, s};
     }
-}
+    if (t > 1) factor[fcnt++] = {t, 1};
 
-void dfs(int u, int p)
-{
-    if (u == fcnt)
-    {
-        divisor[dcnt++] = p;
-        return;
+    dcnt = 0;
+    dfs(0, 1);
+
+    for (int i = 0; i < dcnt; i++) {
+      int x = divisor[i];
+      if (gcd(a, x) == b && lcm(c, x) == d) res++;
     }
-    for (int i = 0; i <= factor[u].s; i++)
-    {
-        dfs(u + 1, p);
-        p *= factor[u].p;
-    }
-}
-
-int main()
-{
-    fast_cin();
-    get_primes(N - 1);
-    cin >> n;
-    while (n--)
-    {
-        cin >> a >> b >> c >> d;
-        fcnt = 0;
-        int t = d, res = 0;
-        for (int i = 0; primes[i] <= t / primes[i]; i++)
-        {
-            int p = primes[i];
-            if (t % p)
-                continue;
-            int s = 0;
-            while (t % p == 0)
-            {
-                s++, t /= p;
-            }
-            factor[fcnt++] = {p, s};
-        }
-        if (t > 1)
-            factor[fcnt++] = {t, 1};
-
-        dcnt = 0;
-        dfs(0, 1);
-
-        for (int i = 0; i < dcnt; i++)
-        {
-            int x = divisor[i];
-            if (gcd(a, x) == b && lcm(c, x) == d)
-                res++;
-        }
-        cout << res << endl;
-    }
-    return 0;
+    cout << res << endl;
+  }
+  return 0;
 }
 
 /*

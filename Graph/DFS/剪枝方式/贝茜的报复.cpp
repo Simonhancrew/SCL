@@ -1,6 +1,6 @@
-#include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
 #include <unordered_map>
 
 using namespace std;
@@ -14,8 +14,8 @@ int ans;
     符合要求的话直接在结果中加入当前组合的情况
 */
 
-unordered_map<char,int> mp[2];
-unordered_map<char,int> rec;
+unordered_map<char, int> mp[2];
+unordered_map<char, int> rec;
 
 string s = "BESIGOM";
 
@@ -32,28 +32,30 @@ void dfs(int idx,int cnt) {
 }
 #endif
 
-int main(){
-    int n;
-    cin >> n;
-    while(n--) {
-        char ch;
-        int nu;
-        cin >> ch >> nu;
-        mp[abs(nu) % 2][ch]++;
+int main() {
+  int n;
+  cin >> n;
+  while (n--) {
+    char ch;
+    int nu;
+    cin >> ch >> nu;
+    mp[abs(nu) % 2][ch]++;
+  }
+  // dfs(0,1);
+  for (int i = 0; i < (1 << 7); i++) {
+    for (int j = 0; j < 7; j++) {
+      rec[s[j]] = (i >> j) & 1;
     }
-    //dfs(0,1);
-    for(int i = 0;i < (1 << 7);i++) {
-        for(int j = 0;j < 7;j++) {
-            rec[s[j]] = (i >> j) & 1;
-        }
-        if((rec['B'] + rec['I']) * (rec['G'] + rec['O'] + rec['E'] + rec['S']) * rec['M'] % 2 == 0) {
-            int sum = 1;
-            for(int j = 0;j < 7;j ++) {
-                sum *= mp[i >> j & 1][s[j]];
-            }
-            ans += sum;
-        }
+    if ((rec['B'] + rec['I']) * (rec['G'] + rec['O'] + rec['E'] + rec['S']) *
+            rec['M'] % 2 ==
+        0) {
+      int sum = 1;
+      for (int j = 0; j < 7; j++) {
+        sum *= mp[i >> j & 1][s[j]];
+      }
+      ans += sum;
     }
-    cout << ans << endl;
-    return 0;
+  }
+  cout << ans << endl;
+  return 0;
 }

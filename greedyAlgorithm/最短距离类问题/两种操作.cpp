@@ -1,12 +1,12 @@
-#include <iostream>
 #include <cstring>
+#include <iostream>
 
 using namespace std;
 
 const int N = 1e4 + 10;
 
-int q[N],d[N];
-int n,m;
+int q[N], d[N];
+int n, m;
 
 #if 0
 // 正向考虑的话，BFS最小步数可以做
@@ -42,18 +42,19 @@ int main()
 
 using namespace std;
 
-int m,n,res;
+int m, n, res;
 
-int main()
-{
-    cin >> n >> m;
-    while(n != m) 
-    {
-        if(m < n) m++;
-        else if(m & 1) m++;
-        else m /= 2;
-        res++;
-    }
-    cout << res << endl;
-    return 0;
+int main() {
+  cin >> n >> m;
+  while (n != m) {
+    if (m < n)
+      m++;
+    else if (m & 1)
+      m++;
+    else
+      m /= 2;
+    res++;
+  }
+  cout << res << endl;
+  return 0;
 }

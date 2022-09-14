@@ -9,27 +9,30 @@ using namespace std;
     一个区间中的最小值，不难联想到单调队列
 */
 
-const int N = 3e5 + 10,INF = 0x3f3f3f3f;
+const int N = 3e5 + 10, INF = 0x3f3f3f3f;
 
-#define fast_cin() ios::sync_with_stdio(false);cin.tie(0);cout.tie(0)
+#define fast_cin()             \
+  ios::sync_with_stdio(false); \
+  cin.tie(0);                  \
+  cout.tie(0)
 
-int s[N],q[N];
-int n,m;
+int s[N], q[N];
+int n, m;
 
-int main(){
-    fast_cin();
-    cin >> n >> m;
-    for(int i = 1;i <= n;i++) cin >> s[i];
-    for(int i = 1;i <= n;i++) s[i] += s[i - 1];
-    int hh = 0,tt = 0;
-    int res = -INF;
-    for(int i = 1;i <= n;i++){
-        if(q[hh] < i - m) hh++;
-        res = max(res,s[i] - s[q[hh]]);
-        // 单调队列，比你晚来的还比你更有优势，你就可以out了。你永远不会被考虑
-        while (hh <= tt && s[q[tt]] >= s[i]) tt--; 
-        q[++tt] = i;
-    }
-    cout << res << endl;
-    return 0;
+int main() {
+  fast_cin();
+  cin >> n >> m;
+  for (int i = 1; i <= n; i++) cin >> s[i];
+  for (int i = 1; i <= n; i++) s[i] += s[i - 1];
+  int hh = 0, tt = 0;
+  int res = -INF;
+  for (int i = 1; i <= n; i++) {
+    if (q[hh] < i - m) hh++;
+    res = max(res, s[i] - s[q[hh]]);
+    // 单调队列，比你晚来的还比你更有优势，你就可以out了。你永远不会被考虑
+    while (hh <= tt && s[q[tt]] >= s[i]) tt--;
+    q[++tt] = i;
+  }
+  cout << res << endl;
+  return 0;
 }

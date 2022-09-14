@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/05/01
 
@@ -16,65 +16,55 @@ using namespace std;
 
 typedef long long LL;
 typedef pair<int, int> PII;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 const int INF = 0x3f3f3f3f, N = 6010;
 
 int n;
 int p[N], sz[N];
 
-struct edge
-{
-    int u, v, w;
+struct edge {
+  int u, v, w;
 } e[N];
 
-int find(int x)
-{
-    if (p[x] != x)
-    {
-        p[x] = find(p[x]);
-    }
-    return p[x];
+int find(int x) {
+  if (p[x] != x) {
+    p[x] = find(p[x]);
+  }
+  return p[x];
 }
 
-int main()
-{
-    fast_cin();
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        cin >> n;
-        for (int i = 0; i < n - 1; i++)
-        {
-            int u, v, w;
-            cin >> u >> v >> w;
-            e[i] = {u, v, w};
-        }
-        for (int i = 1; i <= n; i++)
-            p[i] = i, sz[i] = 1;
-
-        sort(e, e + n - 1, [](edge &l, edge &r)
-             { return l.w < r.w; });
-
-        int res = 0;
-        for (int i = 0; i < n - 1; i++)
-        {
-            int u = find(e[i].u), v = find(e[i].v);
-            int w = e[i].w;
-
-            if (u != v)
-            {
-                res += (sz[u] * sz[v] - 1) * (w + 1);
-                p[u] = v;
-                sz[v] += sz[u];
-            }
-        }
-
-        cout << res << endl;
+int main() {
+  fast_cin();
+  int t;
+  cin >> t;
+  while (t--) {
+    cin >> n;
+    for (int i = 0; i < n - 1; i++) {
+      int u, v, w;
+      cin >> u >> v >> w;
+      e[i] = {u, v, w};
     }
-    return 0;
+    for (int i = 1; i <= n; i++) p[i] = i, sz[i] = 1;
+
+    sort(e, e + n - 1, [](edge &l, edge &r) { return l.w < r.w; });
+
+    int res = 0;
+    for (int i = 0; i < n - 1; i++) {
+      int u = find(e[i].u), v = find(e[i].v);
+      int w = e[i].w;
+
+      if (u != v) {
+        res += (sz[u] * sz[v] - 1) * (w + 1);
+        p[u] = v;
+        sz[v] += sz[u];
+      }
+    }
+
+    cout << res << endl;
+  }
+  return 0;
 }

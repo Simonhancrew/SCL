@@ -14,12 +14,10 @@ const int N = 1e5 + 10;
     倍数。
 */
 
-int n,k;
+int n, k;
 int a[N];
 
-int gcd(int a,int b) {
-    return b ? gcd(b,a % b) : a;
-}
+int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 
 #if 0
 
@@ -75,27 +73,25 @@ int main()
 
 vector<vector<int>> divi(N);
 
-void init()
-{
-    for(int i = 1;i <= N;i++){
-        for(int j = i;j <= N;j += i) {
-            divi[j].push_back(i);
-        }
+void init() {
+  for (int i = 1; i <= N; i++) {
+    for (int j = i; j <= N; j += i) {
+      divi[j].push_back(i);
     }
+  }
 }
 
-int main()
-{
-    cin >> n >> k;
-    LL ans = 0;
-    unordered_map<int,int> mp;
-    for(int i = 0;i < n;i++) cin >> a[i];
-    for(int i = 0;i < n;i++) {
-        ans += mp[k / gcd(k,a[i])];
-        for(auto &d : divi[a[i]]) {
-            mp[d]++;
-        }
+int main() {
+  cin >> n >> k;
+  LL ans = 0;
+  unordered_map<int, int> mp;
+  for (int i = 0; i < n; i++) cin >> a[i];
+  for (int i = 0; i < n; i++) {
+    ans += mp[k / gcd(k, a[i])];
+    for (auto &d : divi[a[i]]) {
+      mp[d]++;
     }
-    cout << ans << endl;
-    return 0;
+  }
+  cout << ans << endl;
+  return 0;
 }

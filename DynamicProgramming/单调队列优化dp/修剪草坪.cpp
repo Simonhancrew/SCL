@@ -1,6 +1,6 @@
-#include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
@@ -15,32 +15,32 @@ typedef long long LL;
     其中i - j在[i - k,i - 1]中
     另外特判g(0)，连续区间的长度就是i，前面的部分就是0，不需要转移，直接返回0
 
-    当然也可以考虑成连续k + 1个数中，至少有一个不被选。最后用全部的和减去min(f[n - k]~f[n])就可以了
-    则f[i]就是在连续k + 1个数中，第i个数被选，且价值最小的情况
+    当然也可以考虑成连续k + 1个数中，至少有一个不被选。最后用全部的和减去min(f[n
+   - k]~f[n])就可以了 则f[i]就是在连续k + 1个数中，第i个数被选，且价值最小的情况
     和烽火传递的转移方式很类似
 */
 
-int n,k;
-LL e[N],q[N],f[N];
+int n, k;
+LL e[N], q[N], f[N];
 
 LL g(int i) {
-    if(!i) return 0;
-    return f[i - 1] - e[i];
+  if (!i) return 0;
+  return f[i - 1] - e[i];
 }
 
-int main(){
-    cin >> n >> k;
-    for(int i = 1;i <= n;i++) {
-        cin >> e[i];
-        e[i] += e[i - 1]; 
-    }
-    int hh = 0,tt = 0;
-    for(int i = 1;i <= n;i++){
-        if(q[hh] < i - k) hh++;
-        f[i] = max(f[i - 1],g(q[hh]) + e[i]);
-        while(hh <= tt && g(q[tt]) <= g(i)) tt--;
-        q[++tt] = i;
-    }
-    cout << f[n] <<endl;
-    return 0;
+int main() {
+  cin >> n >> k;
+  for (int i = 1; i <= n; i++) {
+    cin >> e[i];
+    e[i] += e[i - 1];
+  }
+  int hh = 0, tt = 0;
+  for (int i = 1; i <= n; i++) {
+    if (q[hh] < i - k) hh++;
+    f[i] = max(f[i - 1], g(q[hh]) + e[i]);
+    while (hh <= tt && g(q[tt]) <= g(i)) tt--;
+    q[++tt] = i;
+  }
+  cout << f[n] << endl;
+  return 0;
 }

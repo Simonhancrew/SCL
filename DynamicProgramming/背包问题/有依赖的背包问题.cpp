@@ -1,6 +1,6 @@
-#include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
@@ -16,40 +16,39 @@ const int N = 110;
 
 int dp[N][N];
 int h[N], e[N], ne[N], idx;
-int v[N],w[N];
-int n,m;
+int v[N], w[N];
+int n, m;
 
-void add(int a,int b){
-    e[idx] = b,ne[idx] = h[a],h[a] = idx++;
+void add(int a, int b) { e[idx] = b, ne[idx] = h[a], h[a] = idx++; }
+
+void dfs(int u) {
+  for (int i = h[u]; i != -1; i = ne[i]) {  // 当前附加物品
+    int son = e[i];
+    dfs(son);
+    for (int j = m - v[u]; j >= 0; j--) {  // 当前体积,记得预留根节点的空间
+      for (int k = 0; k <= j; k++) {  // 枚举体积方案
+        dp[u][j] = max(dp[u][j], dp[u][j - k] + dp[son][k]);
+      }
+    }
+  }
+  // 将根节点加进去
+  for (int i = m; i >= v[u]; i--) dp[u][i] = dp[u][i - v[u]] + w[u];
+  for (int i = 0; i < v[u]; i++) dp[u][i] = 0;
 }
 
-void dfs(int u){
-    for(int i = h[u];i != -1;i = ne[i]){ // 当前附加物品
-        int son = e[i];
-        dfs(son);
-        for(int j = m - v[u];j >= 0;j--){ // 当前体积,记得预留根节点的空间
-            for(int k = 0;k <= j;k++){ // 枚举体积方案
-                dp[u][j] = max(dp[u][j],dp[u][j - k] + dp[son][k]);
-            }
-        }
-    }
-    // 将根节点加进去
-    for(int i = m;i >= v[u];i--) dp[u][i] = dp[u][i - v[u]] + w[u];
-    for(int i = 0;i < v[u];i++) dp[u][i] = 0;
-}
-
-
-int main(){
-    cin >> n >> m;
-    int root;
-    memset(h,-1,sizeof h);
-    for(int i = 1;i <= n;i++){
-        int p;
-        cin >> v[i] >> w[i] >> p;
-        if(p == -1) root = i;
-        else add(p,i);
-    }
-    dfs(root);
-    cout << dp[root][m] << endl;
-    return 0;
+int main() {
+  cin >> n >> m;
+  int root;
+  memset(h, -1, sizeof h);
+  for (int i = 1; i <= n; i++) {
+    int p;
+    cin >> v[i] >> w[i] >> p;
+    if (p == -1)
+      root = i;
+    else
+      add(p, i);
+  }
+  dfs(root);
+  cout << dp[root][m] << endl;
+  return 0;
 }

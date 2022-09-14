@@ -9,9 +9,8 @@ using namespace std;
 // 思考如何构造矩阵
 // sum[i] = sum[i - 1] + i * f[i]
 // F[i] = [f[i], f[i + 1], i * f[i], (i + 1) * f[i + 1], sum[i]]
-// F[i + 1] = [f[i + 1], f[i + 2], (i + 1) * f[i + 1], (i + 2) * f[i + 2], sum[i + 1]]
-// 所以转置矩阵
-// A = {{0, 1, 0, 2, 0},
+// F[i + 1] = [f[i + 1], f[i + 2], (i + 1) * f[i + 1], (i + 2) * f[i + 2], sum[i
+// + 1]] 所以转置矩阵 A = {{0, 1, 0, 2, 0},
 //      {1, 1, 0, 1, 0},
 //      {0, 0, 0, 1, 0},
 //      {0, 0, 1, 1, 1},
@@ -19,13 +18,12 @@ using namespace std;
 
 using LL = long long;
 using PII = pair<int, int>;
-#define fast_cin()                                                             \
-  ios_base::sync_with_stdio(false);                                            \
-  cin.tie(nullptr);                                                            \
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
   cout.tie(nullptr)
 
 const int INF = 0x3f3f3f3f, N = 5;
-
 
 int n, m;
 
@@ -55,8 +53,7 @@ int main() {
                  {0, 0, 0, 0, 1}};
   int k = n - 1;
   while (k) {
-    if (k & 1)
-      mul(f, f, A);
+    if (k & 1) mul(f, f, A);
     mul(A, A, A);
     k >>= 1;
   }

@@ -2,7 +2,10 @@
 
 using namespace std;
 
-#define fast_cin() ios::sync_with_stdio(false);cin.tie(0);cout.tie(0)
+#define fast_cin()             \
+  ios::sync_with_stdio(false); \
+  cin.tie(0);                  \
+  cout.tie(0)
 
 const int N = 3e4 + 10;
 
@@ -13,40 +16,42 @@ const int N = 3e4 + 10;
     查询的时候做一个减法就可以了
 */
 
-int p[N],d[N],cnt[N];
+int p[N], d[N], cnt[N];
 int t;
 
 int find(int x) {
-    if(p[x] != x) {
-        int root = find(p[x]);
-        d[x] += d[p[x]];
-        p[x] = root;
-    }
-    return p[x];
+  if (p[x] != x) {
+    int root = find(p[x]);
+    d[x] += d[p[x]];
+    p[x] = root;
+  }
+  return p[x];
 }
 
-int main(){
-    fast_cin();
-    for(int i = 0;i < N;i++) {
-        p[i] = i;
-        cnt[i] = 1;
+int main() {
+  fast_cin();
+  for (int i = 0; i < N; i++) {
+    p[i] = i;
+    cnt[i] = 1;
+  }
+  cin >> t;
+  while (t--) {
+    char op;
+    int a, b;
+    cin >> op >> a >> b;
+    if (op == 'M') {  // lazy update
+      int pa = find(a), pb = find(b);
+      if (pa == pb) continue;
+      d[pa] = cnt[pb];
+      cnt[pb] += cnt[pa];
+      p[pa] = pb;
+    } else {
+      int pa = find(a), pb = find(b);
+      if (pa != pb)
+        cout << -1 << endl;
+      else
+        cout << max(0, abs(d[a] - d[b]) - 1) << endl;
     }
-    cin >> t;
-    while(t--) {
-        char op;
-        int a,b;
-        cin >> op >> a >> b;
-        if(op == 'M') { // lazy update
-            int pa = find(a),pb = find(b);
-            if(pa == pb) continue;
-            d[pa] = cnt[pb];
-            cnt[pb] += cnt[pa];
-            p[pa] = pb;
-        }else {
-            int pa = find(a),pb = find(b);
-            if(pa != pb) cout << -1 << endl;
-            else cout << max(0,abs(d[a] - d[b]) - 1) << endl;
-        }
-    }
-    return 0;
+  }
+  return 0;
 }

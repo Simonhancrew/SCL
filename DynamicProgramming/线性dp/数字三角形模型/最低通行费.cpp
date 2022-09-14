@@ -1,6 +1,6 @@
-#include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
@@ -8,31 +8,31 @@ using namespace std;
 // 2. 这里求的是最小值，所以第一行第一列不能从之前的0走过来（全局变量初始为0）
 // 3. 区别于摘花生，dp[i][j]是走到i,j的最小值，转移方程有区别
 
-const int N = 110,INF = 1e9;
+const int N = 110, INF = 1e9;
 int a[N][N];
 int dp[N][N];
 int n;
 
-int main()
-{
-    cin >> n;
-    for(int i = 1;i <= n;i++){
-        for(int j = 1;j <= n;j++){
-            cin >> a[i][j];
-        }
+int main() {
+  cin >> n;
+  for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= n; j++) {
+      cin >> a[i][j];
     }
-    for(int i = 1;i <= n;i++){
-        for(int j = 1;j <= n;j++){
-            if(i == 1 && j == 1) dp[i][j] = a[i][j];
-            else{
-                dp[i][j] = INF;
-                if(i > 1) dp[i][j] = min(dp[i - 1][j] + a[i][j],dp[i][j]);
-                if(j > 1) dp[i][j] = min(dp[i][j - 1] + a[i][j],dp[i][j]);
-            }
-        }
+  }
+  for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= n; j++) {
+      if (i == 1 && j == 1)
+        dp[i][j] = a[i][j];
+      else {
+        dp[i][j] = INF;
+        if (i > 1) dp[i][j] = min(dp[i - 1][j] + a[i][j], dp[i][j]);
+        if (j > 1) dp[i][j] = min(dp[i][j - 1] + a[i][j], dp[i][j]);
+      }
     }
-    cout << dp[n][n] << endl;
-    return 0;
+  }
+  cout << dp[n][n] << endl;
+  return 0;
 }
 
 #if 0

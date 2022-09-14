@@ -1,6 +1,6 @@
-#include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
@@ -17,18 +17,18 @@ const int N = 1e3 + 10;
 int w[N];
 int n;
 
-int main(){
-    cin >> n;
-    for(int i = 0;i < n;i++) cin >> w[i];
-    sort(w,w + n);
-    int ans = 0;
-    for(int i = 0;i < n - 2;i++){
-        for(int j = i + 1;j < n - 1;j++){
-            auto up = upper_bound(w + j,w + n,3 * w[j] - 2 * w[i]);
-            auto down = lower_bound(w + j,w + n,2 * w[j] - w[i]);
-            ans += up - down;
-        }
+int main() {
+  cin >> n;
+  for (int i = 0; i < n; i++) cin >> w[i];
+  sort(w, w + n);
+  int ans = 0;
+  for (int i = 0; i < n - 2; i++) {
+    for (int j = i + 1; j < n - 1; j++) {
+      auto up = upper_bound(w + j, w + n, 3 * w[j] - 2 * w[i]);
+      auto down = lower_bound(w + j, w + n, 2 * w[j] - w[i]);
+      ans += up - down;
     }
-    cout << ans << endl;
-    return 0;
+  }
+  cout << ans << endl;
+  return 0;
 }

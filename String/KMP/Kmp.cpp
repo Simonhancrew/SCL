@@ -11,7 +11,7 @@ using namespace std;
             flag = false;
             if(s[i + j - 1] != p[j]){
                 break
-            } 
+            }
         }
 
     }
@@ -28,47 +28,42 @@ ex：
 之后关于next数组的求法，极度类似于前面的匹配(以模式字符串为主字符串，以模式字符串的前缀为目标字符串)
 我们不处理长度为1的值，因为next[1]是没有意义的，我们理想下公共前后缀的长度是不能大于等于自身的
 从2开始，给（1，i）找一个匹配的前后缀，假设此时完成了一个到i-1的匹配，i和j+1是不匹配的
-此时我们找到ne[j],看看ne[j] +1和i位置的字符能否匹配，能的话就更新ne[i] 
+此时我们找到ne[j],看看ne[j] +1和i位置的字符能否匹配，能的话就更新ne[i]
 */
 
+const int N = 1e5 + 10, M = 1e6 + 10;
 
-
-
-
-const int N = 1e5+10,M = 1e6 + 10;
-
-char s[M],p[N];
-//next数组
+char s[M], p[N];
+// next数组
 int ne[N];
 
-int main(){
-    int m,n;
-    cin >> n >> p+1 >> m >> s + 1;
-    //创建next数组的过程
-    for(int i = 2, j =0;i <= n;++i){
-        while(j && p[i] != p[j + 1]) j = ne[j];
-        if(p[i] == p[j + 1]) j++;
-        ne[i] = j;
-    }
-    
-    //kmp匹配的过程
-    for(int i = 1,j = 0;i <= m;++i){
-        while(j && s[i] != p[j+1]) j = ne[j];
-        if(s[i] == p[j + 1]) j++;
-        if(j == n){
-            cout << i - j << ' ';
-            j = ne[j];
-        }
-    }
-    return 0;
-}
+int main() {
+  int m, n;
+  cin >> n >> p + 1 >> m >> s + 1;
+  //创建next数组的过程
+  for (int i = 2, j = 0; i <= n; ++i) {
+    while (j && p[i] != p[j + 1]) j = ne[j];
+    if (p[i] == p[j + 1]) j++;
+    ne[i] = j;
+  }
 
+  // kmp匹配的过程
+  for (int i = 1, j = 0; i <= m; ++i) {
+    while (j && s[i] != p[j + 1]) j = ne[j];
+    if (s[i] == p[j + 1]) j++;
+    if (j == n) {
+      cout << i - j << ' ';
+      j = ne[j];
+    }
+  }
+  return 0;
+}
 
 //从0开始的，在做一些题目的时候给的是string，需要原位去判断，不构建char*
 #if 0
+#include <algorithm>
 #include <cstring>
 #include <iostream>
-#include <algorithm>
 
 using namespace std;
 

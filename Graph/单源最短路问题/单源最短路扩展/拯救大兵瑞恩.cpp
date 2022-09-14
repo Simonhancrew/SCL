@@ -1,8 +1,8 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
-#include <set>
 #include <deque>
+#include <iostream>
+#include <set>
 
 // Created by Simonhancrew on 2022/04/13
 
@@ -37,10 +37,10 @@ typedef pair<int, int> PII;
 #define x first
 #define y second
 
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 const int INF = 0x3f3f3f3f, N = 11, M = 400, P = 1 << 10;
 int n, m, p;
@@ -51,120 +51,98 @@ bool st[N * N][P];
 set<PII> edges;
 int dx[4] = {-1, 0, 1, 0}, dy[4] = {0, -1, 0, 1};
 
-void add(int a, int b, int c)
-{
-    e[idx] = b, w[idx] = c, ne[idx] = h[a], h[a] = idx++;
+void add(int a, int b, int c) {
+  e[idx] = b, w[idx] = c, ne[idx] = h[a], h[a] = idx++;
 }
 
 // 建图，不在edge标记的门中就是通路，标记0
-void build()
-{
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= m; j++)
-        {
-            for (int d = 0; d < 4; d++)
-            {
-                int x = i + dx[d], y = j + dy[d];
-                if (x < 1 || x > n || y < 1 || y > m)
-                    continue;
-                int a = g[i][j], b = g[x][y];
-                if (edges.count({a, b}))
-                    continue;
-                add(a, b, 0);
-            }
-        }
+void build() {
+  for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= m; j++) {
+      for (int d = 0; d < 4; d++) {
+        int x = i + dx[d], y = j + dy[d];
+        if (x < 1 || x > n || y < 1 || y > m) continue;
+        int a = g[i][j], b = g[x][y];
+        if (edges.count({a, b})) continue;
+        add(a, b, 0);
+      }
     }
+  }
 }
 
 // 双端队列BFS，等价一个堆优化dij
-int bfs()
-{
-    memset(dist, 0x3f, sizeof dist);
-    dist[1][0] = 0;
-    deque<PII> q;
-    q.push_back({1, 0});
-    while (q.size())
-    {
-        auto t = q.front();
-        q.pop_front();
+int bfs() {
+  memset(dist, 0x3f, sizeof dist);
+  dist[1][0] = 0;
+  deque<PII> q;
+  q.push_back({1, 0});
+  while (q.size()) {
+    auto t = q.front();
+    q.pop_front();
 
-        if (st[t.x][t.y])
-            continue;
-        st[t.x][t.y] = true;
+    if (st[t.x][t.y]) continue;
+    st[t.x][t.y] = true;
 
-        if (t.x == n * m)
-            return dist[t.x][t.y];
+    if (t.x == n * m) return dist[t.x][t.y];
 
-        // 当前位置有钥匙，将位置 + 状态更新，此时的边权是0
-        if (key[t.x])
-        {
-            int state = t.y | key[t.x];
-            if (dist[t.x][state] > dist[t.x][t.y])
-            {
-                dist[t.x][state] = dist[t.x][t.y];
-                q.push_front({t.x, state});
-            }
-        }
-
-        // 更新当前点连接边的点的距离（状态不变，点变），此时边权1
-        for (int i = h[t.x]; i != -1; i = ne[i])
-        {
-            int j = e[i];
-            if (w[i] && ((t.y >> (w[i] - 1)) & 1) == 0)
-                continue;
-            if (dist[j][t.y] > dist[t.x][t.y] + 1)
-            {
-                dist[j][t.y] = dist[t.x][t.y] + 1;
-                q.push_back({j, t.y});
-            }
-        }
+    // 当前位置有钥匙，将位置 + 状态更新，此时的边权是0
+    if (key[t.x]) {
+      int state = t.y | key[t.x];
+      if (dist[t.x][state] > dist[t.x][t.y]) {
+        dist[t.x][state] = dist[t.x][t.y];
+        q.push_front({t.x, state});
+      }
     }
 
-    return -1;
+    // 更新当前点连接边的点的距离（状态不变，点变），此时边权1
+    for (int i = h[t.x]; i != -1; i = ne[i]) {
+      int j = e[i];
+      if (w[i] && ((t.y >> (w[i] - 1)) & 1) == 0) continue;
+      if (dist[j][t.y] > dist[t.x][t.y] + 1) {
+        dist[j][t.y] = dist[t.x][t.y] + 1;
+        q.push_back({j, t.y});
+      }
+    }
+  }
+
+  return -1;
 }
 
-int main()
-{
-    fast_cin();
-    int k;
-    cin >> n >> m >> p >> k;
+int main() {
+  fast_cin();
+  int k;
+  cin >> n >> m >> p >> k;
 
-    // 将点的2D变1D
-    for (int i = 1, t = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= m; j++)
-        {
-            g[i][j] = t++;
-        }
+  // 将点的2D变1D
+  for (int i = 1, t = 1; i <= n; i++) {
+    for (int j = 1; j <= m; j++) {
+      g[i][j] = t++;
     }
+  }
 
-    // 不是真边权，一个标记，是门还是通路
-    memset(h, -1, sizeof h);
-    while (k--)
-    {
-        int a, b, c, d, e;
-        cin >> a >> b >> c >> d >> e;
-        int lhs = g[a][b], rhs = g[c][d];
-        edges.insert({lhs, rhs}), edges.insert({rhs, lhs});
-        if (e)
-            add(lhs, rhs, e), add(rhs, lhs, e);
-    }
+  // 不是真边权，一个标记，是门还是通路
+  memset(h, -1, sizeof h);
+  while (k--) {
+    int a, b, c, d, e;
+    cin >> a >> b >> c >> d >> e;
+    int lhs = g[a][b], rhs = g[c][d];
+    edges.insert({lhs, rhs}), edges.insert({rhs, lhs});
+    if (e) add(lhs, rhs, e), add(rhs, lhs, e);
+  }
 
-    build();
+  build();
 
-    int s;
-    cin >> s;
-    // 利用二进制每个位置的key
-    while (s--)
-    {
-        int x, y, q;
-        cin >> x >> y >> q;
-        int idx = g[x][y];
-        key[idx] |= 1 << (q - 1);
-    }
+  int s;
+  cin >> s;
+  // 利用二进制每个位置的key
+  while (s--) {
+    int x, y, q;
+    cin >> x >> y >> q;
+    int idx = g[x][y];
+    key[idx] |= 1 << (q - 1);
+  }
 
-    cout << bfs() << endl;
+  cout << bfs() << endl;
 
-    return 0;
+  return 0;
 }

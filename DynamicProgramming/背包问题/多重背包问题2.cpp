@@ -1,16 +1,17 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 //多重背包问题，同一个重量和value的物品有n件
 //所以朴素的解法和多重背包是很类似的，但是无法用本层的去优化，因为是限制了同一个物品可以拿的数量，所以本层的
-//dp[i][j - v] = max(             dp[i - 1][j - v], dp[i - 1][j - 2 * v] + w, dp[i - 1][j - 3 * v] + 2 * w, ...dp[i-1][j - sv - v] + s * w)
+// dp[i][j - v] = max(             dp[i - 1][j - v], dp[i - 1][j - 2 * v] + w,
+// dp[i - 1][j - 3 * v] + 2 * w, ...dp[i-1][j - sv - v] + s * w)
 //不能直接来优化,范围扩大的话，会超时.
 //这里引入二进制优化的方式,我们考虑打包的方式来优化，一个物品可以打包成1，2，4。。。。。2**k个包，这些包一定能够拼凑出完整的k个物品的价值，
 //之后对这些包做一次01背包问题就可以了
 
 using namespace std;
 
-const int N = 23000,M = 2e3 + 10;
+const int N = 23000, M = 2e3 + 10;
 #if 0
 int v[N],w[N];
 int dp[M];
@@ -51,26 +52,26 @@ int main()
 #endif
 
 int dp[N];
-int n,m;
+int n, m;
 
 // 在输入的时候顺便做,就是把物品拆分，单个更大的体积
 
-int main(){
-    cin >> n >> m;
-    for(int i = 0;i < n;i++){
-        int v,w,s;
-        cin >> v >> w >> s;
-        for(int k = 1;k <= s;k *= 2){
-            for(int j = m;j >= k * v;j--){
-                dp[j] = max(dp[j],dp[j - k * v] + k * w);
-            }
-            s -= k;
-        }
-        if(s){
-            for(int j = m;j >= s * v;j--){
-                dp[j] = max(dp[j],dp[j - s * v] + s * w);
-            }
-        }
+int main() {
+  cin >> n >> m;
+  for (int i = 0; i < n; i++) {
+    int v, w, s;
+    cin >> v >> w >> s;
+    for (int k = 1; k <= s; k *= 2) {
+      for (int j = m; j >= k * v; j--) {
+        dp[j] = max(dp[j], dp[j - k * v] + k * w);
+      }
+      s -= k;
     }
-    cout << dp[m] << endl;
+    if (s) {
+      for (int j = m; j >= s * v; j--) {
+        dp[j] = max(dp[j], dp[j - s * v] + s * w);
+      }
+    }
+  }
+  cout << dp[m] << endl;
 }

@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 #include <vector>
 
 // Created by Simonhancrew on 2022/03/21
@@ -18,62 +18,49 @@ using namespace std;
 */
 
 typedef long long LL;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 const int N = 3;
 int n, m;
 
-void mul(int c[], int a[], int b[][N])
-{
-    int tmp[N] = {0};
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < N; j++)
-        {
-            tmp[i] = (tmp[i] + (LL)a[j] * b[j][i]) % m;
-        }
+void mul(int c[], int a[], int b[][N]) {
+  int tmp[N] = {0};
+  for (int i = 0; i < N; i++) {
+    for (int j = 0; j < N; j++) {
+      tmp[i] = (tmp[i] + (LL)a[j] * b[j][i]) % m;
     }
-    memcpy(c, tmp, sizeof tmp);
+  }
+  memcpy(c, tmp, sizeof tmp);
 }
 
-void mul(int c[][N], int a[][N], int b[][N])
-{
-    int tmp[N][N] = {0};
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < N; j++)
-        {
-            for (int k = 0; k < N; k++)
-            {
-                tmp[i][j] = (tmp[i][j] + (LL)a[i][k] * b[k][j]) % m;
-            }
-        }
+void mul(int c[][N], int a[][N], int b[][N]) {
+  int tmp[N][N] = {0};
+  for (int i = 0; i < N; i++) {
+    for (int j = 0; j < N; j++) {
+      for (int k = 0; k < N; k++) {
+        tmp[i][j] = (tmp[i][j] + (LL)a[i][k] * b[k][j]) % m;
+      }
     }
-    memcpy(c, tmp, sizeof tmp);
+  }
+  memcpy(c, tmp, sizeof tmp);
 }
 
-int main()
-{
-    fast_cin();
-    cin >> n >> m;
-    int f[N] = {1, 1, 1};
-    int a[N][N] = {
-        {0, 1, 0},
-        {1, 1, 1},
-        {0, 0, 1}};
-    --n;
-    while (n)
-    {
-        if (n & 1)
-            mul(f, f, a);
-        mul(a, a, a);
-        n >>= 1;
-    }
-    cout << f[2] << endl;
-    return 0;
+int main() {
+  fast_cin();
+  cin >> n >> m;
+  int f[N] = {1, 1, 1};
+  int a[N][N] = {{0, 1, 0}, {1, 1, 1}, {0, 0, 1}};
+  --n;
+  while (n) {
+    if (n & 1) mul(f, f, a);
+    mul(a, a, a);
+    n >>= 1;
+  }
+  cout << f[2] << endl;
+  return 0;
 }
 
 /*

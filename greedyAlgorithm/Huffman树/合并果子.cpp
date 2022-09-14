@@ -7,24 +7,24 @@
 
 using namespace std;
 
-int main(){
-    int n;
-    priority_queue<int,vector<int>,greater<int>> heap;
-    cin >> n;
-    while(n--){
-        int a;
-        cin >> a;
-        heap.push(a);
-    }
-    int res =0;
-    while(heap.size() > 1){
-        int a1 = heap.top();
-        heap.pop();
-        int a2 = heap.top();
-        heap.pop();
-        heap.push(a1 + a2);
-        res += a1 + a2;
-    }
-    cout << res << endl;
-    return 0;
+int main() {
+  int n;
+  priority_queue<int, vector<int>, greater<int>> heap;
+  cin >> n;
+  while (n--) {
+    int a;
+    cin >> a;
+    heap.push(a);
+  }
+  int res = 0;
+  while (heap.size() > 1) {
+    int a1 = heap.top();
+    heap.pop();
+    int a2 = heap.top();
+    heap.pop();
+    heap.push(a1 + a2);
+    res += a1 + a2;
+  }
+  cout << res << endl;
+  return 0;
 }

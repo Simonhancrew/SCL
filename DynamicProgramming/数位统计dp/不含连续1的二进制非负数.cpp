@@ -19,32 +19,32 @@ const int N = 32;
 
 int dp[32][2];
 
-int main(){
-    int n;
-    cin >> n;
-    dp[1][0] = 1,dp[1][1] = 1;
-    vector<int> num;
-    while(n){
-        num.push_back(n & 1);
-        n >>= 1;
-    }
+int main() {
+  int n;
+  cin >> n;
+  dp[1][0] = 1, dp[1][1] = 1;
+  vector<int> num;
+  while (n) {
+    num.push_back(n & 1);
+    n >>= 1;
+  }
 
-    for(int i = 2;i <= num.size();i++){
-        dp[i][0] = dp[i - 1][0] + dp[i - 1][1];
-        dp[i][1] = dp[i - 1][0];
-    }
+  for (int i = 2; i <= num.size(); i++) {
+    dp[i][0] = dp[i - 1][0] + dp[i - 1][1];
+    dp[i][1] = dp[i - 1][0];
+  }
 
-    int res = 0;
-    for(int i = num.size(),pre = 0;i;i--){
-        if(num[i - 1]){
-            res += dp[i][0];
-            if(pre){
-                cout << res << endl;
-                return 0;
-            }
-        }
-        pre = num[i - 1];
+  int res = 0;
+  for (int i = num.size(), pre = 0; i; i--) {
+    if (num[i - 1]) {
+      res += dp[i][0];
+      if (pre) {
+        cout << res << endl;
+        return 0;
+      }
     }
-    cout << res + 1 << endl;
-    return 0;
+    pre = num[i - 1];
+  }
+  cout << res + 1 << endl;
+  return 0;
 }

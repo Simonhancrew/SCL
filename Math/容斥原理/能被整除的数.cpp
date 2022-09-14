@@ -12,32 +12,33 @@ const int N = 20;
 
 int p[N];
 
+int main() {
+  int m, n;
+  cin >> n >> m;
+  for (int i = 0; i < m; i++) cin >> p[i];
 
-int main(){
-    int m,n;
-    cin >> n >> m;
-    for(int i = 0;i < m;i++) cin >> p[i];
-    
-    int res = 0;
-    //位枚举状态，至少选中一个集合
-    for(int i = 1;i < 1 << m;i++){
-        int t = 1,s = 0;//t是选中的质数的乘积，s是选中的集合数目
-        for(int j = 0;j < m;j++){
-            if(i >> j & 1){
-                //乘积过大，不会存在整除的数
-                if((LL)t * p[j] > n){
-                    t = -1;
-                    break;
-                }
-                s++;
-                t *= p[j];
-            }
+  int res = 0;
+  //位枚举状态，至少选中一个集合
+  for (int i = 1; i < 1 << m; i++) {
+    int t = 1, s = 0;  // t是选中的质数的乘积，s是选中的集合数目
+    for (int j = 0; j < m; j++) {
+      if (i >> j & 1) {
+        //乘积过大，不会存在整除的数
+        if ((LL)t * p[j] > n) {
+          t = -1;
+          break;
         }
-        if(t == -1) continue;
-        if(s & 1) res += n / t;
-        else res -= n / t;
+        s++;
+        t *= p[j];
+      }
     }
-    cout << res << endl;
-    return 0;
+    if (t == -1) continue;
+    if (s & 1)
+      res += n / t;
+    else
+      res -= n / t;
+  }
+  cout << res << endl;
+  return 0;
 }
 //此题还可以选用dfs去做

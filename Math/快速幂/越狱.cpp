@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/03/08
 
@@ -14,33 +14,29 @@ using namespace std;
 */
 
 typedef long long LL;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 const int P = 100003;
 
 LL n, m;
 
-int qmi(int a, LL b)
-{
-    int res = 1;
-    while (b)
-    {
-        if (b & 1)
-            res = (LL)res * a % P;
-        a = (LL)a * a % P;
-        b >>= 1;
-    }
-    return res;
+int qmi(int a, LL b) {
+  int res = 1;
+  while (b) {
+    if (b & 1) res = (LL)res * a % P;
+    a = (LL)a * a % P;
+    b >>= 1;
+  }
+  return res;
 }
 
-int main()
-{
-    fast_cin();
-    cin >> m >> n;
-    // 处理-数的问题
-    cout << (qmi(m, n) - (LL)m * qmi(m - 1, n - 1) % P + P) % P << endl;
-    return 0;
+int main() {
+  fast_cin();
+  cin >> m >> n;
+  // 处理-数的问题
+  cout << (qmi(m, n) - (LL)m * qmi(m - 1, n - 1) % P + P) % P << endl;
+  return 0;
 }

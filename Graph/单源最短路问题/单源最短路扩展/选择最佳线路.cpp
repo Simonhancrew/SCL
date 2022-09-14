@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 #include <queue>
 
 // Created by Simonhancrew on 2022/04/12
@@ -16,10 +16,10 @@ using namespace std;
 
 typedef long long LL;
 typedef pair<int, int> PII;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 const int INF = 0x3f3f3f3f, N = 1e3 + 10, M = 2e4 + 10 + 1000;
 
@@ -29,66 +29,55 @@ bool st[N];
 queue<int> q;
 int n, m, s;
 
-void add(int a, int b, int c)
-{
-    e[idx] = b, w[idx] = c, ne[idx] = h[a], h[a] = idx++;
+void add(int a, int b, int c) {
+  e[idx] = b, w[idx] = c, ne[idx] = h[a], h[a] = idx++;
 }
 
-int spfa()
-{
-    memset(dist, 0x3f, sizeof dist);
-    dist[0] = 0;
-    st[0] = true;
-    q.push(0);
-    while (q.size())
-    {
-        auto t = q.front();
-        q.pop();
-        st[t] = false;
-        for (int i = h[t]; i != -1; i = ne[i])
-        {
-            int j = e[i];
-            if (dist[j] > dist[t] + w[i])
-            {
-                dist[j] = dist[t] + w[i];
-                if (!st[j])
-                {
-                    st[j] = true;
-                    q.push(j);
-                }
-            }
+int spfa() {
+  memset(dist, 0x3f, sizeof dist);
+  dist[0] = 0;
+  st[0] = true;
+  q.push(0);
+  while (q.size()) {
+    auto t = q.front();
+    q.pop();
+    st[t] = false;
+    for (int i = h[t]; i != -1; i = ne[i]) {
+      int j = e[i];
+      if (dist[j] > dist[t] + w[i]) {
+        dist[j] = dist[t] + w[i];
+        if (!st[j]) {
+          st[j] = true;
+          q.push(j);
         }
+      }
     }
-    if (dist[s] == INF)
-        return -1;
-    return dist[s];
+  }
+  if (dist[s] == INF) return -1;
+  return dist[s];
 }
 
-int main()
-{
-    fast_cin();
-    while (cin >> n >> m >> s)
-    {
-        idx = 0;
-        memset(h, -1, sizeof h);
-        while (m--)
-        {
-            int a, b, c;
-            cin >> a >> b >> c;
-            add(a, b, c);
-        }
-        int w;
-        cin >> w;
-        while (w--)
-        {
-            int a;
-            cin >> a;
-            add(0, a, 0);
-        }
-        int res = spfa();
-        cout << res << endl;
+int main() {
+  fast_cin();
+  while (cin >> n >> m >> s) {
+    idx = 0;
+    memset(h, -1, sizeof h);
+    while (m--) {
+      int a, b, c;
+      cin >> a >> b >> c;
+      add(a, b, c);
     }
-    return 0;
+    int w;
+    cin >> w;
+    while (w--) {
+      int a;
+      cin >> a;
+      add(0, a, 0);
+    }
+    int res = spfa();
+    cout << res << endl;
+  }
+  return 0;
 }
 
 /*

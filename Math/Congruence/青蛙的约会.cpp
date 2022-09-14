@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/03/20
 
@@ -14,40 +14,36 @@ using namespace std;
 */
 
 typedef long long LL;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 LL a, b, m, n, L;
 
-LL ex_gcd(LL a, LL b, LL &x, LL &y)
-{
-    if (b == 0)
-    {
-        x = 1, y = 0;
-        return a;
-    }
-    LL d = ex_gcd(b, a % b, y, x);
-    y -= a / b * x;
-    return d;
+LL ex_gcd(LL a, LL b, LL &x, LL &y) {
+  if (b == 0) {
+    x = 1, y = 0;
+    return a;
+  }
+  LL d = ex_gcd(b, a % b, y, x);
+  y -= a / b * x;
+  return d;
 }
 
-int main()
-{
-    fast_cin();
-    cin >> a >> b >> m >> n >> L;
-    LL x, y;
-    LL d = ex_gcd(m - n, L, x, y);
-    if ((b - a) % d)
-        cout << "Impossible" << endl;
-    else
-    {
-        x *= (b - a) / d;
-        LL t = abs(L / d);
-        cout << (x % t + t) % t << endl;
-    }
-    return 0;
+int main() {
+  fast_cin();
+  cin >> a >> b >> m >> n >> L;
+  LL x, y;
+  LL d = ex_gcd(m - n, L, x, y);
+  if ((b - a) % d)
+    cout << "Impossible" << endl;
+  else {
+    x *= (b - a) / d;
+    LL t = abs(L / d);
+    cout << (x % t + t) % t << endl;
+  }
+  return 0;
 }
 
 /*

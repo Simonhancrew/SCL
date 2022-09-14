@@ -1,6 +1,6 @@
-#include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
@@ -20,38 +20,37 @@ int used[N];
 int g[N][N];
 int ans;
 
-void dfs(string tot,int last) {
-    ans = max(ans,int(tot.size()));
-    used[last]++;
-    for(size_t i = 0;i < n;i++) {
-        if(used[i] < 2 && g[last][i] >= 1) {
-            dfs(tot + s[i].substr(g[last][i]),i);
-        }
+void dfs(string tot, int last) {
+  ans = max(ans, int(tot.size()));
+  used[last]++;
+  for (size_t i = 0; i < n; i++) {
+    if (used[i] < 2 && g[last][i] >= 1) {
+      dfs(tot + s[i].substr(g[last][i]), i);
     }
-    used[last]--;
+  }
+  used[last]--;
 }
 
-
-int main(){
-    cin >> n;
-    for(size_t i = 0;i < n;i++) cin >> s[i];
-    cin >> start;
-    for(int i = 0;i < n;i++) {
-        for(int j = 0;j < n;j++) {
-            string a = s[i],b = s[j];
-            for(int k = 1;k < min(a.size(),b.size());k++){
-                if(a.substr(a.size() - k) == b.substr(0,k)) {
-                    g[i][j] = k;
-                    break;
-                }
-            }
+int main() {
+  cin >> n;
+  for (size_t i = 0; i < n; i++) cin >> s[i];
+  cin >> start;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      string a = s[i], b = s[j];
+      for (int k = 1; k < min(a.size(), b.size()); k++) {
+        if (a.substr(a.size() - k) == b.substr(0, k)) {
+          g[i][j] = k;
+          break;
         }
+      }
     }
-    for(int i = 0;i < n;i++) {
-        if(start == s[i][0]) {
-            dfs(s[i],i); // 不要break
-        }
+  }
+  for (int i = 0; i < n; i++) {
+    if (start == s[i][0]) {
+      dfs(s[i], i);  // 不要break
     }
-    cout << ans <<endl;
-    return 0;
+  }
+  cout << ans << endl;
+  return 0;
 }

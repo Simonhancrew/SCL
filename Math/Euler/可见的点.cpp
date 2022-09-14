@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/03/16
 
@@ -15,10 +15,10 @@ using namespace std;
 */
 
 typedef long long LL;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 const int N = 1e3 + 10;
 
@@ -26,43 +26,35 @@ int t, n;
 int primes[N], phi[N], cnt;
 bool st[N];
 
-void get_primes(int n)
-{
-    phi[1] = 1;
-    for (int i = 2; i <= n; i++)
-    {
-        if (!st[i])
-        {
-            primes[cnt++] = i;
-            phi[i] = i - 1;
-        }
-        for (int j = 0; primes[j] <= n / i; j++)
-        {
-            st[primes[j] * i] = true;
-            if (i % primes[j] == 0)
-            {
-                phi[i * primes[j]] = phi[i] * primes[j];
-                break;
-            }
-            phi[primes[j] * i] = phi[i] * (primes[j] - 1);
-        }
+void get_primes(int n) {
+  phi[1] = 1;
+  for (int i = 2; i <= n; i++) {
+    if (!st[i]) {
+      primes[cnt++] = i;
+      phi[i] = i - 1;
     }
+    for (int j = 0; primes[j] <= n / i; j++) {
+      st[primes[j] * i] = true;
+      if (i % primes[j] == 0) {
+        phi[i * primes[j]] = phi[i] * primes[j];
+        break;
+      }
+      phi[primes[j] * i] = phi[i] * (primes[j] - 1);
+    }
+  }
 }
 
-int main()
-{
-    fast_cin();
-    cin >> t;
-    get_primes(N - 1);
-    for (int idx = 1; idx <= t; idx++)
-    {
-        cin >> n;
-        int res = 1;
-        for (int i = 1; i <= n; i++)
-            res += phi[i] * 2;
-        cout << idx << ' ' << n << ' ' << res << endl;
-    }
-    return 0;
+int main() {
+  fast_cin();
+  cin >> t;
+  get_primes(N - 1);
+  for (int idx = 1; idx <= t; idx++) {
+    cin >> n;
+    int res = 1;
+    for (int i = 1; i <= n; i++) res += phi[i] * 2;
+    cout << idx << ' ' << n << ' ' << res << endl;
+  }
+  return 0;
 }
 
 /*

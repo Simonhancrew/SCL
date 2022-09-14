@@ -1,8 +1,7 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
-
 
 /*
 
@@ -14,7 +13,9 @@ using namespace std;
 
 因为我更改和查询的所有点都是确定的，我把更改的点和需要查询的点映射到a中就可以实现一个缩放的操作。
 
-比如我操作了200这个位置，在200这个位置+10，200这个数在all中是存在的，我找到all[idx] == 200,然后a[idx]就实际标识了200这位置的状态，a[idx] == 10就代表我在200这个位置加了10
+比如我操作了200这个位置，在200这个位置+10，200这个数在all中是存在的，我找到all[idx]
+== 200,然后a[idx]就实际标识了200这位置的状态，a[idx] ==
+10就代表我在200这个位置加了10
 
 再下面就可以处理前缀和了,实际处理的时候find函数返回+1是为了前缀和的方便处理，可以不用去考虑边界问题
 
@@ -28,82 +29,81 @@ using namespace std;
 
 */
 
-
 /*
     给出的数据范围极大，但是实际可行范围小很多
     可以针对可行范围对整体范围做一个离散化
 */
-vector<int> all;//需要用到的实际坐标值
-const int N = 3e5 + 10; // add一个， l + r两个
-int a[N],s[N];//a是映射数组，前n次add的值离散化到a中
+vector<int> all;         //需要用到的实际坐标值
+const int N = 3e5 + 10;  // add一个， l + r两个
+int a[N], s[N];          // a是映射数组，前n次add的值离散化到a中
 
-typedef pair<int,int> PII;
-vector<PII> add,query;//前几次的插入操作和查询操作
+typedef pair<int, int> PII;
+vector<PII> add, query;  //前几次的插入操作和查询操作
 
 /*
     find的关键，找到add或者query的实际坐标值在a中的映射
     这些数最后离散的下标就是[0,all.size() - 1]
     返还这个映射值
 */
-int find(int x){
-    int l = 0,r = all.size() - 1;
-    while(l < r){
-        int mid = l + r >> 1;
-        if(all[mid] >= x) r = mid;
-        else l = mid + 1;
-    } 
-    return r + 1;//映射到1
+int find(int x) {
+  int l = 0, r = all.size() - 1;
+  while (l < r) {
+    int mid = l + r >> 1;
+    if (all[mid] >= x)
+      r = mid;
+    else
+      l = mid + 1;
+  }
+  return r + 1;  //映射到1
 }
 
-int main(){
-    int n,m;
-    cin >> n >> m;
-    //插入操作
-    for(int i = 0;i < n;i++){
-        int x,c;
-        cin >> x >> c;
-        add.push_back({x,c});
-        all.push_back(x);
-    }
-    //储存查询操作
-    for(int i = 0;i < m;i++){
-        int l,r;
-        cin >> l >> r;
-        query.push_back({l,r});
-        all.push_back(l);
-        all.push_back(r);
-    }
-    //排序 + 去重
-    sort(all.begin(),all.end());
-    all.erase(unique(all.begin(),all.end()),all.end());
+int main() {
+  int n, m;
+  cin >> n >> m;
+  //插入操作
+  for (int i = 0; i < n; i++) {
+    int x, c;
+    cin >> x >> c;
+    add.push_back({x, c});
+    all.push_back(x);
+  }
+  //储存查询操作
+  for (int i = 0; i < m; i++) {
+    int l, r;
+    cin >> l >> r;
+    query.push_back({l, r});
+    all.push_back(l);
+    all.push_back(r);
+  }
+  //排序 + 去重
+  sort(all.begin(), all.end());
+  all.erase(unique(all.begin(), all.end()), all.end());
 
-    //对于插入的处理
-    for(auto &item : add){
-        int x = find(item.first);
-        a[x] += item.second;
-    }
-    for(int i = 1;i <= all.size();i++) s[i] = s[i-1] + a[i];
-    //查询的处理
-    for(auto &item:query){
-        int l = find(item.first),r = find(item.second);
-        cout << s[r] - s[l - 1] << endl;
-    }
-    return 0;
+  //对于插入的处理
+  for (auto &item : add) {
+    int x = find(item.first);
+    a[x] += item.second;
+  }
+  for (int i = 1; i <= all.size(); i++) s[i] = s[i - 1] + a[i];
+  //查询的处理
+  for (auto &item : query) {
+    int l = find(item.first), r = find(item.second);
+    cout << s[r] - s[l - 1] << endl;
+  }
+  return 0;
 }
 
-
-vector<int>::iterator unique(vector<int> &input){
-    int j = 0;
-    int n = input.size();
-    for(int i = 0;i < n;i++){
-        if(!i || input[i] != input[i - 1]){
-            input[j++] = input[i];
-        }
+vector<int>::iterator unique(vector<int> &input) {
+  int j = 0;
+  int n = input.size();
+  for (int i = 0; i < n; i++) {
+    if (!i || input[i] != input[i - 1]) {
+      input[j++] = input[i];
     }
-    //此时从a[0]-- a[j - 1]都是不重复的
-    return input.begin() + j;
+  }
+  //此时从a[0]-- a[j - 1]都是不重复的
+  return input.begin() + j;
 }
-
 
 /*
 离散化的模板

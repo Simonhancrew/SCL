@@ -1,6 +1,6 @@
-#include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
@@ -15,24 +15,24 @@ const int N = 1e3 + 10;
 // 这样就保证了最后逆推的时候顺序遍历下，这个i一定是可以选的
 
 int dp[N][N];
-int n,m;
-int v[N],w[N];
+int n, m;
+int v[N], w[N];
 
-int main(){
-    cin >> n >> m;
-    for(int i = 1;i <= n;i++) cin >> v[i] >> w[i];
-    for(int i = n;i >=1;i--){
-        for(int j = 0;j <= m;j++){
-            dp[i][j] = dp[i + 1][j];
-            if(j >= v[i]) dp[i][j] = max(dp[i][j],dp[i + 1][j - v[i]] + w[i]);
-        }
+int main() {
+  cin >> n >> m;
+  for (int i = 1; i <= n; i++) cin >> v[i] >> w[i];
+  for (int i = n; i >= 1; i--) {
+    for (int j = 0; j <= m; j++) {
+      dp[i][j] = dp[i + 1][j];
+      if (j >= v[i]) dp[i][j] = max(dp[i][j], dp[i + 1][j - v[i]] + w[i]);
     }
-    int j = m;
-    for(int i = 1;i <= n;i++){
-        if(j >= v[i] && dp[i][j] == dp[i + 1][j - v[i]] + w[i]){
-            cout << i << ' ';
-            j -= v[i];
-        }
+  }
+  int j = m;
+  for (int i = 1; i <= n; i++) {
+    if (j >= v[i] && dp[i][j] == dp[i + 1][j - v[i]] + w[i]) {
+      cout << i << ' ';
+      j -= v[i];
     }
-    return 0;
+  }
+  return 0;
 }

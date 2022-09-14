@@ -1,5 +1,5 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -13,28 +13,28 @@ const int N = 310;
 int dp[N][N];
 int s[N];
 
-int main(){
-    int n;
-    cin >> n;
-    //算一下前缀和
-    for(int i = 1;i <= n;i++){
-        cin >> s[i];
-        s[i] += s[i - 1];
+int main() {
+  int n;
+  cin >> n;
+  //算一下前缀和
+  for (int i = 1; i <= n; i++) {
+    cin >> s[i];
+    s[i] += s[i - 1];
+  }
+  //按照长度从小到大枚举所有的状态
+  //长度为1的时候合并没有代价，不考虑
+  for (int len = 2; len <= n; len++) {
+    for (int i = 1; i + len - 1 <= n; i++) {
+      //区间做右端点
+      int l = i, r = i + len - 1;
+      //记得初始代价为无穷大，负责dp为0，代价已经最小了
+      dp[l][r] = 1e9;
+      //枚举可以的划分区间
+      for (int k = l; k < r; k++) {
+        dp[l][r] = min(dp[l][r], dp[l][k] + dp[k + 1][r] + s[r] - s[l - 1]);
+      }
     }
-    //按照长度从小到大枚举所有的状态
-    //长度为1的时候合并没有代价，不考虑
-    for(int len = 2;len <= n;len++){
-        for(int i = 1;i + len - 1 <= n;i++){
-            //区间做右端点
-            int l = i,r = i + len - 1;
-            //记得初始代价为无穷大，负责dp为0，代价已经最小了
-            dp[l][r] = 1e9;
-            //枚举可以的划分区间
-            for(int k = l;k < r;k++){
-                dp[l][r] = min(dp[l][r],dp[l][k] + dp[k + 1][r] + s[r] - s[l - 1]);
-            }
-        }
-    }
-    cout << dp[1][n] << endl;
-    return 0;
+  }
+  cout << dp[1][n] << endl;
+  return 0;
 }

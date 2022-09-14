@@ -1,6 +1,6 @@
-#include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
@@ -52,17 +52,17 @@ int main(){
 // 然后注意一下背包的变种问题，比如数字组合和装箱问题，
 const int N = 6e3 + 10;
 int dp[N];
-int n,m,v,w,s;
+int n, m, v, w, s;
 
-int main(){
-    cin >> n >> m;
-    for(int i = 1;i <= n;i++){
-        cin >> v >> w >> s;
-        for(int j = m;j >= 0;j--){
-            for(int k = 0;k <= s && k * v <= j;k++){
-                dp[j] = max(dp[j],dp[j - k * v] + k * w);
-            }
-        }
+int main() {
+  cin >> n >> m;
+  for (int i = 1; i <= n; i++) {
+    cin >> v >> w >> s;
+    for (int j = m; j >= 0; j--) {
+      for (int k = 0; k <= s && k * v <= j; k++) {
+        dp[j] = max(dp[j], dp[j - k * v] + k * w);
+      }
     }
-    cout << dp[m] << endl;
+  }
+  cout << dp[m] << endl;
 }

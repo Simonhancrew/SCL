@@ -1,12 +1,12 @@
-#include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
 const int N = 5e3 + 10;
 
-typedef pair<int,int> PII;
+typedef pair<int, int> PII;
 
 // 代码抽象出来不难，思路比较难
 /*
@@ -18,22 +18,21 @@ typedef pair<int,int> PII;
 PII a[N];
 int dp[N];
 
-int main()
-{
-    int n;
-    cin >> n;
-    for(int i = 0;i < n;i++) scanf("%d%d",&a[i].first,&a[i].second);
-    sort(a,a + n);
-    
-    int res = 0;
-    for(int i = 1;i <= n;i++){
-        dp[i] = 1;
-        for(int j = 1;j < i;j++){
-            if(a[i - 1].second > a[j - 1].second){
-                dp[i] = max(dp[i],dp[j] + 1);
-            }
-        }
-        res = max(res,dp[i]);
+int main() {
+  int n;
+  cin >> n;
+  for (int i = 0; i < n; i++) scanf("%d%d", &a[i].first, &a[i].second);
+  sort(a, a + n);
+
+  int res = 0;
+  for (int i = 1; i <= n; i++) {
+    dp[i] = 1;
+    for (int j = 1; j < i; j++) {
+      if (a[i - 1].second > a[j - 1].second) {
+        dp[i] = max(dp[i], dp[j] + 1);
+      }
     }
-    cout << res << endl;
+    res = max(res, dp[i]);
+  }
+  cout << res << endl;
 }

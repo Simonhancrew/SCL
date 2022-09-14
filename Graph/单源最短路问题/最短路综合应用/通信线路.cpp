@@ -1,7 +1,7 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
 #include <deque>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/03/31
 
@@ -22,61 +22,68 @@ using namespace std;
 */
 
 typedef long long LL;
-typedef pair<int,int> PII;
-#define fast_cin() ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr)
+typedef pair<int, int> PII;
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
-const int INF = 0x3f3f3f3f,N = 1e3 + 10,M = 2e4 + 10;
+const int INF = 0x3f3f3f3f, N = 1e3 + 10, M = 2e4 + 10;
 
-int n,p,k;
-int h[N],e[M],ne[M],w[M],idx;
+int n, p, k;
+int h[N], e[M], ne[M], w[M], idx;
 int d[N];
 bool st[N];
 deque<int> heap;
 
-void add(int a,int b,int c){
-    e[idx] = b,ne[idx] = h[a],w[idx] = c,h[a] = idx++;
+void add(int a, int b, int c) {
+  e[idx] = b, ne[idx] = h[a], w[idx] = c, h[a] = idx++;
 }
 
 bool check(int bound) {
-    memset(d,0x3f,sizeof d);
-    memset(st,0,sizeof st);
-    d[1] = 0;
-    heap.push_back(1);
-    while(heap.size()) 
-    {
-        auto t = heap.front();
-        heap.pop_front();
-        if(st[t]) continue;
-        st[t] = true;
-        for(int i = h[t];i != -1;i = ne[i]){
-            int j = e[i],dis = w[i] > bound;
-            if(d[j] > d[t] + dis) {
-                d[j] = d[t] + dis;
-                if(!dis) heap.push_front(j);
-                else heap.push_back(j);
-            }
-        }
+  memset(d, 0x3f, sizeof d);
+  memset(st, 0, sizeof st);
+  d[1] = 0;
+  heap.push_back(1);
+  while (heap.size()) {
+    auto t = heap.front();
+    heap.pop_front();
+    if (st[t]) continue;
+    st[t] = true;
+    for (int i = h[t]; i != -1; i = ne[i]) {
+      int j = e[i], dis = w[i] > bound;
+      if (d[j] > d[t] + dis) {
+        d[j] = d[t] + dis;
+        if (!dis)
+          heap.push_front(j);
+        else
+          heap.push_back(j);
+      }
     }
-    return d[n] <= k;
+  }
+  return d[n] <= k;
 }
 
-
-int main(){
-    fast_cin();
-    cin >> n >> p >> k;
-    memset(h,-1,sizeof h);
-    for(int i = 0;i < p;i++){
-        int a,b,c;
-        cin >> a >> b >> c;
-        add(a,b,c),add(b,a,c);
-    }
-    int l = 0,r = 1e6 + 1;
-    while(l < r) {
-        int mid = l + r >> 1;
-        if(check(mid)) r = mid;
-        else l = mid + 1;
-    }
-    if(r == 1e6 + 1) cout << -1 << endl;
-    else cout << r << endl;
-    return 0;
+int main() {
+  fast_cin();
+  cin >> n >> p >> k;
+  memset(h, -1, sizeof h);
+  for (int i = 0; i < p; i++) {
+    int a, b, c;
+    cin >> a >> b >> c;
+    add(a, b, c), add(b, a, c);
+  }
+  int l = 0, r = 1e6 + 1;
+  while (l < r) {
+    int mid = l + r >> 1;
+    if (check(mid))
+      r = mid;
+    else
+      l = mid + 1;
+  }
+  if (r == 1e6 + 1)
+    cout << -1 << endl;
+  else
+    cout << r << endl;
+  return 0;
 }

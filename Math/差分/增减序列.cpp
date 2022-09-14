@@ -4,7 +4,10 @@ using namespace std;
 
 const int N = 1e5 + 10;
 typedef long long LL;
-#define fast_cin() ios::sync_with_stdio(false);cin.tie(0);cout.tie(0)
+#define fast_cin()             \
+  ios::sync_with_stdio(false); \
+  cin.tie(0);                  \
+  cout.tie(0)
 
 /*
     区间增减不难想到差分，即通过+1，-1让[b2,bn]全部变成0
@@ -16,21 +19,21 @@ typedef long long LL;
 */
 
 int n;
-int a[N],b[N];
+int a[N], b[N];
 
-int main()
-{
-    fast_cin();
-    cin >> n;
-    for(int i = 1;i <= n;i++) cin >> a[i];
-    for(int i = 1;i <= n;i++) b[i] = a[i] - a[i - 1];
-    LL p = 0,q = 0;
-    for(int i = 2;i <= n;i++) 
-    {
-        if(b[i] > 0) p += b[i];
-        else q -= b[i];
-    }
-    cout << max(p,q) << endl;
-    cout << abs(p - q) + 1 << endl;
-    return 0;
+int main() {
+  fast_cin();
+  cin >> n;
+  for (int i = 1; i <= n; i++) cin >> a[i];
+  for (int i = 1; i <= n; i++) b[i] = a[i] - a[i - 1];
+  LL p = 0, q = 0;
+  for (int i = 2; i <= n; i++) {
+    if (b[i] > 0)
+      p += b[i];
+    else
+      q -= b[i];
+  }
+  cout << max(p, q) << endl;
+  cout << abs(p - q) + 1 << endl;
+  return 0;
 }

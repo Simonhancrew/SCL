@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/03/21
 
@@ -23,98 +23,77 @@ using namespace std;
 */
 
 typedef long long LL;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 const int INF = 0x3f3f3f3f;
 
 LL l;
 
-LL gcd(LL a, LL b)
-{
-    return b ? gcd(b, a % b) : a;
-}
+LL gcd(LL a, LL b) { return b ? gcd(b, a % b) : a; }
 
 // 试除法求欧拉函数
-LL get_euler(LL c)
-{
-    LL res = c;
-    for (int i = 2; i <= c / i; i++)
-    {
-        if (c % i == 0)
-        {
-            while (c % i == 0)
-                c /= i;
-            res = res / i * (i - 1);
-        }
+LL get_euler(LL c) {
+  LL res = c;
+  for (int i = 2; i <= c / i; i++) {
+    if (c % i == 0) {
+      while (c % i == 0) c /= i;
+      res = res / i * (i - 1);
     }
-    if (c > 1)
-        res = res / c * (c - 1);
-    return res;
+  }
+  if (c > 1) res = res / c * (c - 1);
+  return res;
 }
 
 // a * b爆LL的龟速乘
-LL qmul(LL a, LL b, LL p)
-{
-    LL res = 0;
-    while (b)
-    {
-        if (b & 1)
-            res = (res + a) % p;
-        b >>= 1;
-        a = (a + a) % p;
-    }
-    return res;
+LL qmul(LL a, LL b, LL p) {
+  LL res = 0;
+  while (b) {
+    if (b & 1) res = (res + a) % p;
+    b >>= 1;
+    a = (a + a) % p;
+  }
+  return res;
 }
 
 // 快速幂
-LL qmi(LL a, LL b, LL p)
-{
-    LL res = 1;
-    while (b)
-    {
-        if (b & 1)
-            res = qmul(res, a, p);
-        b >>= 1;
-        a = qmul(a, a, p);
-    }
-    return res;
+LL qmi(LL a, LL b, LL p) {
+  LL res = 1;
+  while (b) {
+    if (b & 1) res = qmul(res, a, p);
+    b >>= 1;
+    a = qmul(a, a, p);
+  }
+  return res;
 }
 
-int main()
-{
-    fast_cin();
-    int t = 1;
-    while (cin >> l, l)
-    {
-        int d = gcd(l, 8);
-        // cout << d << ' ';
-        LL c = 9 * l / d;
-        LL phi = get_euler(c);
+int main() {
+  fast_cin();
+  int t = 1;
+  while (cin >> l, l) {
+    int d = gcd(l, 8);
+    // cout << d << ' ';
+    LL c = 9 * l / d;
+    LL phi = get_euler(c);
 
-        LL res = 2e18;
-        // cout << c << ' ' << phi << endl;
-        if (c % 2 == 0 || c % 5 == 0)
-            res = 0;
-        else
-        {
-            for (LL i = 1; i <= phi / i; i++)
-            {
-                if (phi % i == 0)
-                {
-                    if (qmi(10, i, c) == 1)
-                        res = min(res, i);
-                    if (qmi(10, phi / i, c) == 1)
-                        res = min(res, phi / i);
-                }
-            }
+    LL res = 2e18;
+    // cout << c << ' ' << phi << endl;
+    if (c % 2 == 0 || c % 5 == 0)
+      res = 0;
+    else {
+      for (LL i = 1; i <= phi / i; i++) {
+        if (phi % i == 0) {
+          if (qmi(10, i, c) == 1) res = min(res, i);
+          if (qmi(10, phi / i, c) == 1) res = min(res, phi / i);
         }
-        cout << "Case " << t << ": " << res << endl;
-        ++t;
+      }
     }
-    return 0;
+    cout << "Case " << t << ": " << res << endl;
+    ++t;
+  }
+  return 0;
 }
 
 /*

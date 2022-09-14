@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/04/28
 
@@ -16,10 +16,10 @@ using namespace std;
 
 typedef long long LL;
 typedef pair<int, int> PII;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 const int INF = 0x3f3f3f3f, N = 1010, M = 2 * N * N;
 
@@ -28,86 +28,67 @@ int x1, y1, x2, y2;
 int p[N * N];
 int id[N][N];
 
-struct edge
-{
-    int u, v, w;
+struct edge {
+  int u, v, w;
 } e[M];
 
-int find(int x)
-{
-    if (p[x] != x)
-    {
-        p[x] = find(p[x]);
-    }
-    return p[x];
+int find(int x) {
+  if (p[x] != x) {
+    p[x] = find(p[x]);
+  }
+  return p[x];
 }
 
 // 先加竖直，再加横向的
-void get_edge()
-{
-    int dx[4] = {-1, 0, 1, 0}, dy[4] = {0, -1, 0, 1};
-    int dz[4] = {1, 2, 1, 2};
-    // 竖直边在方向数组dz中刚刚好是mod2余0的
-    for (int z = 0; z < 2; z++)
-    {
-        for (int i = 1; i <= n; i++)
-        {
-            for (int j = 1; j <= m; j++)
-            {
-                for (int u = 0; u < 4; u++)
-                {
-                    if (u % 2 == z)
-                    {
-                        int x = i + dx[u], y = j + dy[u], w = dz[u];
-                        if (x && x <= n && y && y <= m)
-                        {
-                            int u = id[i][j], v = id[x][y];
-                            if (u < v)
-                                e[cnt++] = {u, v, w};
-                        }
-                    }
-                }
+void get_edge() {
+  int dx[4] = {-1, 0, 1, 0}, dy[4] = {0, -1, 0, 1};
+  int dz[4] = {1, 2, 1, 2};
+  // 竖直边在方向数组dz中刚刚好是mod2余0的
+  for (int z = 0; z < 2; z++) {
+    for (int i = 1; i <= n; i++) {
+      for (int j = 1; j <= m; j++) {
+        for (int u = 0; u < 4; u++) {
+          if (u % 2 == z) {
+            int x = i + dx[u], y = j + dy[u], w = dz[u];
+            if (x && x <= n && y && y <= m) {
+              int u = id[i][j], v = id[x][y];
+              if (u < v) e[cnt++] = {u, v, w};
             }
+          }
         }
+      }
     }
+  }
 }
 
-int main()
-{
-    fast_cin();
-    cin >> n >> m;
-    for (int i = 1; i <= n * m; i++)
-        p[i] = i;
-    for (int i = 1, t = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= m; j++, t++)
-        {
-            id[i][j] = t;
-        }
+int main() {
+  fast_cin();
+  cin >> n >> m;
+  for (int i = 1; i <= n * m; i++) p[i] = i;
+  for (int i = 1, t = 1; i <= n; i++) {
+    for (int j = 1; j <= m; j++, t++) {
+      id[i][j] = t;
     }
-    while (cin >> x1 >> y1 >> x2 >> y2)
-    {
-        int u = find(id[x1][y1]), v = find(id[x2][y2]);
-        if (u != v)
-        {
-            p[u] = v;
-        }
+  }
+  while (cin >> x1 >> y1 >> x2 >> y2) {
+    int u = find(id[x1][y1]), v = find(id[x2][y2]);
+    if (u != v) {
+      p[u] = v;
     }
+  }
 
-    get_edge();
+  get_edge();
 
-    int res = 0;
-    for (int i = 0; i < cnt; i++)
-    {
-        int u = find(e[i].u), v = find(e[i].v);
-        int w = e[i].w;
-        if (u != v)
-        {
-            res += w;
-            p[u] = v;
-        }
+  int res = 0;
+  for (int i = 0; i < cnt; i++) {
+    int u = find(e[i].u), v = find(e[i].v);
+    int w = e[i].w;
+    if (u != v) {
+      res += w;
+      p[u] = v;
     }
+  }
 
-    cout << res << endl;
-    return 0;
+  cout << res << endl;
+  return 0;
 }

@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/03/10
 
@@ -21,48 +21,40 @@ using namespace std;
 */
 
 typedef long long LL;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 const int P = 1e9 + 7, N = 1e6 + 10;
 
 int n;
 int primes[N], st[N], cnt;
 
-void get_prime(int n)
-{
-    for (int i = 2; i <= n; i++)
-    {
-        if (!st[i])
-            primes[cnt++] = i;
-        for (int j = 0; primes[j] <= n / i; j++)
-        {
-            st[primes[j] * i] = true;
-            if (i % primes[j] == 0)
-                break;
-        }
+void get_prime(int n) {
+  for (int i = 2; i <= n; i++) {
+    if (!st[i]) primes[cnt++] = i;
+    for (int j = 0; primes[j] <= n / i; j++) {
+      st[primes[j] * i] = true;
+      if (i % primes[j] == 0) break;
     }
+  }
 }
 
-int main()
-{
-    fast_cin();
+int main() {
+  fast_cin();
 
-    cin >> n;
-    get_prime(n);
+  cin >> n;
+  get_prime(n);
 
-    int res = 1;
-    for (int i = 0; i < cnt; i++)
-    {
-        int s = 0, p = primes[i];
-        for (int j = n; j; j /= p)
-        {
-            s += j / p;
-        }
-        res = (LL)res * (2 * s + 1) % P;
+  int res = 1;
+  for (int i = 0; i < cnt; i++) {
+    int s = 0, p = primes[i];
+    for (int j = n; j; j /= p) {
+      s += j / p;
     }
-    cout << res << endl;
-    return 0;
+    res = (LL)res * (2 * s + 1) % P;
+  }
+  cout << res << endl;
+  return 0;
 }

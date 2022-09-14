@@ -1,11 +1,10 @@
-#include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
 
 using namespace std;
 
 const int N = 1e3 + 10;
-
 
 // 还是三重循环考虑2维的
 
@@ -53,15 +52,15 @@ int main(){
 
 int dp[N];
 
-int main(){
-    int n;
-    cin >> n;
-    dp[0] = 1;
-    int a[] = {10,20,50,100};
-    for(int i = 0;i < 4;i++){
-        for(int j = a[i];j <= n;j++){
-            dp[j] += dp[j - a[i]]; 
-        }
+int main() {
+  int n;
+  cin >> n;
+  dp[0] = 1;
+  int a[] = {10, 20, 50, 100};
+  for (int i = 0; i < 4; i++) {
+    for (int j = a[i]; j <= n; j++) {
+      dp[j] += dp[j - a[i]];
     }
-    cout << dp[n] << endl;
+  }
+  cout << dp[n] << endl;
 }

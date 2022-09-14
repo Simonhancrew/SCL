@@ -1,6 +1,6 @@
-#include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <iostream>
 
 // Created by Simonhancrew on 2022/05/13
 
@@ -26,10 +26,10 @@ using namespace std;
 
 typedef long long LL;
 typedef pair<int, int> PII;
-#define fast_cin()                    \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(nullptr);                 \
-    cout.tie(nullptr)
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 const int INF = 0x3f3f3f3f, N = 30, M = 100;
 
@@ -38,96 +38,76 @@ int dist[N], cnt[N], q[N];
 bool st[N];
 int r[N], nums[N];
 
-void add(int a, int b, int c)
-{
-    e[idx] = b, ne[idx] = h[a], w[idx] = c, h[a] = idx++;
+void add(int a, int b, int c) {
+  e[idx] = b, ne[idx] = h[a], w[idx] = c, h[a] = idx++;
 }
 
-void build(int tail)
-{
-    memset(h, -1, sizeof h);
-    idx = 0;
-    for (int i = 1; i <= 24; i++)
-    {
-        add(i - 1, i, 0);
-        add(i, i - 1, -nums[i]);
-    }
-    for (int i = 8; i <= 24; i++)
-        add(i - 8, i, r[i]);
-    for (int i = 1; i <= 7; i++)
-        add(i + 16, i, r[i] - tail);
-    // 限制tail->s[24]
-    add(0, 24, tail), add(24, 0, -tail);
+void build(int tail) {
+  memset(h, -1, sizeof h);
+  idx = 0;
+  for (int i = 1; i <= 24; i++) {
+    add(i - 1, i, 0);
+    add(i, i - 1, -nums[i]);
+  }
+  for (int i = 8; i <= 24; i++) add(i - 8, i, r[i]);
+  for (int i = 1; i <= 7; i++) add(i + 16, i, r[i] - tail);
+  // 限制tail->s[24]
+  add(0, 24, tail), add(24, 0, -tail);
 }
 
-bool spfa(int tail)
-{
-    build(tail);
-    memset(st, 0, sizeof st);
-    memset(cnt, 0, sizeof cnt);
-    memset(dist, -0x3f, sizeof dist);
-    dist[0] = 0;
-    st[0] = true;
-    q[0] = 0;
-    int hh = 0, tt = 1;
-    while (hh != tt)
-    {
-        int t = q[hh++];
-        if (hh == N)
-            hh = 0;
-        st[t] = false;
-        for (int i = h[t]; i != -1; i = ne[i])
-        {
-            int j = e[i];
-            if (dist[j] < dist[t] + w[i])
-            {
-                dist[j] = dist[t] + w[i];
-                cnt[j] = cnt[t] + 1;
-                if (cnt[j] >= 25)
-                    return false;
-                if (!st[j])
-                {
-                    st[j] = true;
-                    q[tt++] = j;
-                    if (tt == N)
-                        tt = 0;
-                }
-            }
+bool spfa(int tail) {
+  build(tail);
+  memset(st, 0, sizeof st);
+  memset(cnt, 0, sizeof cnt);
+  memset(dist, -0x3f, sizeof dist);
+  dist[0] = 0;
+  st[0] = true;
+  q[0] = 0;
+  int hh = 0, tt = 1;
+  while (hh != tt) {
+    int t = q[hh++];
+    if (hh == N) hh = 0;
+    st[t] = false;
+    for (int i = h[t]; i != -1; i = ne[i]) {
+      int j = e[i];
+      if (dist[j] < dist[t] + w[i]) {
+        dist[j] = dist[t] + w[i];
+        cnt[j] = cnt[t] + 1;
+        if (cnt[j] >= 25) return false;
+        if (!st[j]) {
+          st[j] = true;
+          q[tt++] = j;
+          if (tt == N) tt = 0;
         }
+      }
     }
-    return true;
+  }
+  return true;
 }
 
-int main()
-{
-    fast_cin();
-    int T;
-    cin >> T;
-    while (T--)
-    {
-        memset(nums, 0, sizeof nums);
-        for (int i = 1; i <= 24; i++)
-            cin >> r[i];
-        int n;
-        cin >> n;
-        for (int i = 0; i < n; i++)
-        {
-            int t;
-            cin >> t;
-            nums[t + 1]++;
-        }
-        bool flag = false;
-        for (int i = 0; i <= 1000; i++)
-        {
-            if (spfa(i))
-            {
-                cout << i << endl;
-                flag = true;
-                break;
-            }
-        }
-        if (!flag)
-            cout << "No Solution" << endl;
+int main() {
+  fast_cin();
+  int T;
+  cin >> T;
+  while (T--) {
+    memset(nums, 0, sizeof nums);
+    for (int i = 1; i <= 24; i++) cin >> r[i];
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+      int t;
+      cin >> t;
+      nums[t + 1]++;
     }
-    return 0;
+    bool flag = false;
+    for (int i = 0; i <= 1000; i++) {
+      if (spfa(i)) {
+        cout << i << endl;
+        flag = true;
+        break;
+      }
+    }
+    if (!flag) cout << "No Solution" << endl;
+  }
+  return 0;
 }

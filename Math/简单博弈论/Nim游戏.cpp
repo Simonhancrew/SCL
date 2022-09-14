@@ -5,17 +5,19 @@
 
 using namespace std;
 
-int main(){
-    int n;
-    cin >> n;
-    int res;
-    while(n--){
-        int a;
-        cin >> a;
-        res ^= a;
-    }
-    //异或一起是0，先手必败
-    if(res == 0) puts("No");
-    else puts("Yes");
-    return 0;
+int main() {
+  int n;
+  cin >> n;
+  int res;
+  while (n--) {
+    int a;
+    cin >> a;
+    res ^= a;
+  }
+  //异或一起是0，先手必败
+  if (res == 0)
+    puts("No");
+  else
+    puts("Yes");
+  return 0;
 }
