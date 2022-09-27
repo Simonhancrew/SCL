@@ -6,6 +6,11 @@
 
 using namespace std;
 
+// f[i][j], 从起点开始，长度为i，没有匹配成功，与patter匹配长度为j的方案数
+// f[i + 1][k] = f[i][j], 其中j能不能转移到k可以用kmp预先做一个跳转
+// 发现这个递推关系其实是固定的，这种固定关系可以考虑用矩阵快速幂优化
+// f[i + 1][k] = sum(a[i][j] * f[i][j])
+
 using LL  = long long;
 using PII = pair<int, int>;
 #define fast_cin()                  \
