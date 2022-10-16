@@ -5,7 +5,13 @@
 // C(a,b)(lucas)≡C(a/p,b/p)(lucas) * C(a mod p,b mod p)(mod p)
 
 using namespace std;
-using LL = long long;
+
+using LL  = long long;
+using PII = pair<int, int>;
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
 int p;
 
@@ -13,31 +19,35 @@ int p;
 int qmi(int a, int k) {
   int res = 1;
   while (k) {
-    if (k & 1) res = (LL)res * a % p;
+    if (k & 1)
+      res = (LL)res * a % p;
     a = (LL)a * a % p;
     k >>= 1;
   }
   return res;
 }
 
-//定义出发求组和
+//定义出发求组和,没必要每次都求逆元，一次求完就可以了
 int C(int a, int b) {
-  if (b > a) return 0;
-  int res = 1;
+  if (b > a)
+    return 0;
+  int up = 1, down = 1;
   for (int i = 1, j = a; i <= b; i++, j--) {
-    res = (LL)res * j % p;
-    res = (LL)res * qmi(i, p - 2) % p;
+    up   = (LL)up * j % p;
+    down = (LL)down * i % p;
   }
-  return res;
+  return (LL)up * qmi(down, p - 2) % p;
 }
 
 //公式卢卡斯，小于p停止递归
 int lucas(LL a, LL b) {
-  if (a < p && b < p) return C(a, b);
+  if (a < p && b < p)
+    return C(a, b);
   return (LL)C(a % p, b % p) * lucas(a / p, b / p) % p;
 }
 
 int main() {
+  fast_cin();
   int n;
   cin >> n;
   while (n--) {
