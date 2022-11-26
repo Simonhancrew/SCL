@@ -33,7 +33,7 @@ int dijkstra() {
     heap.pop();
     int node = t.second, dis = t.first;
     // 2 按照第一个元素排序，可能存在冗余，直接判断就好
-    if (st[node]) continue;
+    if (st[node]) continue; // 这里其实可以少开一个st， 用dis > d[node]判断就可以了
     // 3 将这个最小的距离加入确定集合
     st[node] = true;
     // 4 利用这个距离来更新他周围的点到起点的距离
