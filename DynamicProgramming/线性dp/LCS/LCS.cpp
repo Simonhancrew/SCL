@@ -11,6 +11,7 @@ int dp[N][N];
 char a[N], b[N];
 
 int main() {
+  // freopen("input.txt", "r", stdin);
   int m, n;
   cin >> m >> n;
   scanf("%s%s", a + 1, b + 1);
@@ -21,5 +22,19 @@ int main() {
     }
   }
   cout << dp[m][n] << endl;
+  int i = m, j = n;
+  string ans;
+  auto&f = dp;
+  while (i > 0 && j > 0) {
+    if (a[i] == b[j]) {
+      ans += a[i];
+    } else if (f[i][j] == f[i - 1][j]) {
+      i--;
+    } else if (f[i][j] == f[i][j - 1]) {
+      j--;
+    }
+  }
+  reverse(ans.begin(), ans.end());
+  cout << ans << endl;
   return 0;
 }
