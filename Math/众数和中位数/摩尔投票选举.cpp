@@ -10,13 +10,14 @@ int main() {
   int n;
   cin >> n;
   int k = 0, candy = 0;
+  // candy数是出现次数最多的数
   for (int i = 0; i < n; i++) {
     int x;
     cin >> x;
     a[i] = x;
     if (k == 0) {
       candy = x;
-      k = 1;
+      k     = 1;
     } else {
       if (candy == x) {
         k++;
@@ -25,9 +26,11 @@ int main() {
       }
     }
   }
-  int k = 0;
+  // 看看candy数是否符合要求
+  k = 0;
   for (int i = 0; i < n; i++) {
-    if (a[i] == candy) k++;
+    if (a[i] == candy)
+      k++;
   }
   if (k > n / 2)
     cout << candy << endl;
