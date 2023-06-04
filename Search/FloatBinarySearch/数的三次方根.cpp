@@ -1,13 +1,32 @@
+#include <algorithm>
+#include <cstring>
 #include <iostream>
+
+// Created by Simonhancrew on 2023/06/04
 
 using namespace std;
 
+using LL  = long long;
+using PII = pair<int, int>;
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
+
+const int INF = 0x3f3f3f3f;
+
+double n;
+
+// 浮点数都是整除，可以严格缩小一半的区间
+
 int main() {
-  double n;
+  // freopen("input.txt","r",stdin);
+  // freopen("output.txt","w",stdout);
+  fast_cin();
   cin >> n;
-  double l = -10000, r = 10000;
+  double l = -1000, r = 1000;
   while (r - l > 1e-8) {
-    double mid = (l + r) / 2;
+    auto mid = (l + r) / 2;
     if (mid * mid * mid >= n)
       r = mid;
     else
@@ -16,20 +35,3 @@ int main() {
   printf("%.6lf\n", l);
   return 0;
 }
-
-/*
-bool check(double x) {} // 检查x是否满足某种性质
-
-double bsearch_3(double l, double r)
-{
-    const double eps = 1e-6;   // eps 表示精度，取决于题目对精度的要求
-    while (r - l > eps)
-    {
-        double mid = (l + r) / 2;
-        if (check(mid)) r = mid;
-        else l = mid;
-    }
-    return l;
-}
-
-*/
