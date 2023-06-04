@@ -78,3 +78,13 @@ int lower_bound(int a[], int tar) {
   return l;
 }
 ```
+
+### 二段性的二分
+
+二分只要满足二段性就能够使用，将一个二段性数组区间[l, r]看作蓝色和红色的部分(左侧是红色，也就是小于或者不满足条件的区域)
+
+lower_bound其实实在找两种颜色的分割点
+
+每次的[l, r]也看做一个红色->蓝色的分解数组，对于当前mid，lower_bound找target只要target在红色段就要缩小上界
+
+因此check函数只要判断target是不是在红色区域就行了
