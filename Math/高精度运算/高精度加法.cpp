@@ -1,55 +1,59 @@
+#include <algorithm>
+#include <cstring>
 #include <iostream>
 #include <vector>
+
+// Created by Simonhancrew on 2023/06/09
+
 using namespace std;
-//首先大整数存储是利用数组存储的
-//然后是按照逆序存储的，小的位在数组的头部（为了进位的push方便，不用去整体位移）
 
-/*
-高精度加法的模板
+using LL  = long long;
+using PII = pair<int, int>;
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
-// C = A + B, A >= 0, B >= 0
-vector<int> add(vector<int> &A, vector<int> &B)
-{
-    if (A.size() < B.size()) return add(B, A);
+const int INF = 0x3f3f3f3f;
 
-    vector<int> C;
-    int t = 0;
-    for (int i = 0; i < A.size(); i ++ )
-    {
-        t += A[i];
-        if (i < B.size()) t += B[i];
-        C.push_back(t % 10);
-        t /= 10;
-    }
+string a, b;
 
-    if (t) C.push_back(t);
-    return C;
-}
-
-*/
-
-//模拟进位加法
-vector<int> add(vector<int> &A, vector<int> &B) {
-  vector<int> C;
-  int t = 0;
-  for (int i = 0; i < A.size() || i < B.size(); i++) {
-    if (i < A.size()) t += A[i];
-    if (i < B.size()) t += B[i];
-    C.push_back(t % 10);
-    t /= 10;
+auto add(const string &a, const string &b) {
+  vector<int> res;
+  int n = a.size(), m = b.size();
+  int i = 0, acc = 0;
+  for (i = 0; i < n && i < m; i++) {
+    int cur = (a[i] - '0') + (b[i] - '0') + acc;
+    res.push_back(cur % 10);
+    acc = cur / 10;
   }
-  if (t) C.push_back(1);
-  return C;
+  while (i < n) {
+    int cur = (a[i++] - '0') + acc;
+    res.push_back(cur % 10);
+    acc = cur / 10;
+  }
+  while (i < m) {
+    int cur = (b[i++] - '0') + acc;
+    res.push_back(cur % 10);
+    acc = cur / 10;
+  }
+  if (acc)
+    res.push_back(acc);
+  return res;
 }
 
 int main() {
-  string a, b;
-  vector<int> A, B;
+  // freopen("input.txt","r",stdin);
+  // freopen("output.txt","w",stdout);
+  fast_cin();
   cin >> a >> b;
-  for (int i = a.size() - 1; i >= 0; i--) A.push_back(a[i] - '0');
-  for (int i = b.size() - 1; i >= 0; i--) B.push_back(b[i] - '0');
-
-  auto C = add(A, B);
-  for (int i = C.size() - 1; i >= 0; i--) cout << C[i];
+  reverse(a.begin(), a.end());
+  reverse(b.begin(), b.end());
+  auto res = add(a, b);
+  reverse(res.begin(), res.end());
+  for (int i = 0; i < res.size(); i++) {
+    cout << res[i];
+  }
+  cout << '\n';
   return 0;
 }
