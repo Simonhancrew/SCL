@@ -40,7 +40,5 @@
 *.app
 main
 
-
-
 # mac
 .DS_Store
