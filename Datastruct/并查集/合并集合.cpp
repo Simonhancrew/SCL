@@ -1,4 +1,5 @@
 #include <iostream>
+#include <numeric>
 
 using namespace std;
 
@@ -13,7 +14,7 @@ int find(int x) {
 int main() {
   int m, n;
   scanf("%d%d", &n, &m);
-  for (int i = 1; i <= n; i++) p[i] = i;
+  iota(p + 1, p + n + 1, 1);
 
   while (m--) {
     char op[2];
