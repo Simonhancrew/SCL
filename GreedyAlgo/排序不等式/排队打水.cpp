@@ -1,25 +1,39 @@
 #include <algorithm>
-#include <cstring>
 #include <iostream>
+#include <vector>
+
+// Created by Simonhancrew on 2023/09/30
 
 using namespace std;
-using LL = long long;
 
-//从小打到排序，然后看每一个位置的贡献
+using LL  = long long;
+using PII = pair<int, int>;
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
-const int N = 1e5 + 10;
-int d[N];
+const int INF = 0x3f3f3f3f;
+
+int n{};
 
 int main() {
-  int n;
+  // freopen("input.txt","r",stdin);
+  // freopen("output.txt","w",stdout);
+  fast_cin();
   cin >> n;
+  vector<int> s;
+  s.reserve(n);
   for (int i = 0; i < n; i++) {
-    cin >> d[i];
+    int t;
+    cin >> t;
+    s.push_back(t);
   }
-  sort(d, d + n);
-  LL res = 0;
-  //每一项都会让后面的人等待
-  for (int i = 0; i < n; i++) res += d[i] * (n - i - 1);
-  cout << res << endl;
+  sort(s.begin(), s.end());
+  LL ans = 0;
+  for (LL i = 0, acc = n - 1; i < n; i++, acc--) {
+    ans += acc * s[i];
+  }
+  cout << ans << '\n';
   return 0;
 }
