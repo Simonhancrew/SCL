@@ -14,9 +14,13 @@ int n, m;
 
 int main() {
   cin >> n >> m;
-  for (int i = 1; i <= n; i++) cin >> w[i];
+  for (int i = 1; i <= n; i++) {
+    cin >> w[i];
+  }
   memset(f, -0x3f, sizeof f);
-  for (int i = 0; i <= n; i++) f[i][0][0] = 0;
+  for (int i = 0; i <= n; i++) {
+    f[i][0][0] = 0;
+  }
   for (int i = 1; i <= n; i++) {
     for (int j = 1; j <= m; j++) {
       f[i][j][0] = max(f[i - 1][j][0], f[i - 1][j][1] + w[i]);
@@ -24,6 +28,8 @@ int main() {
     }
   }
   int res = 0;
-  for (int i = 0; i <= m; i++) res = max(res, f[n][i][0]);
+  for (int i = 0; i <= m; i++) {
+    res = max(res, f[n][i][0]);
+  }
   cout << res << endl;
 }

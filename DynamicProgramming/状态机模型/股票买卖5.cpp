@@ -16,7 +16,9 @@ int n;
 int main() {
   cin.sync_with_stdio(false);
   cin >> n;
-  for (int i = 1; i <= n; i++) cin >> a[i];
+  for (int i = 1; i <= n; i++) {
+    cin >> a[i];
+  }
   // 初始状态是f[1][2],处于可以买的状态
   // 其余状态非法设为负无穷
   f[0][0] = -INF, f[0][1] = -INF, f[0][2] = 0;
