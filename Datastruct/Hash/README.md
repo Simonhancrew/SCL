@@ -25,3 +25,18 @@
 4. 如果要算(L, R)范围的一个数的哈希值，那么就是hash[R] - hash[L - 1] * P ^ (R - L + 1), 需要注意的是要把hash[L - 1]提升到和hash[R]一样的位数，这样才能相减
 
 5. 为了计算方便，可以预先算出p的进制数，存在数组里p[i] => p^i
+
+```cpp
+ULL get(const std::string &x) {
+  ULL res = 1;
+  auto n  = x.size();
+  for (auto i = 0; i < n; i++) {
+    res = res * P + x[i];
+  }
+  return res;
+}
+
+bool is_same(const std::string& a, const std::string& b) {
+  return get(a) == get(b);
+}
+```

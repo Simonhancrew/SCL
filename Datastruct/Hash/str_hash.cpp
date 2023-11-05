@@ -33,6 +33,19 @@ ULL get(int l, int r) {
   return s_hash[r] - s_hash[l - 1] * p[r - l + 1];
 }
 
+ULL get(const std::string &x) {
+  ULL res = 1;
+  auto n  = x.size();
+  for (auto i = 0; i < n; i++) {
+    res = res * P + x[i];
+  }
+  return res;
+}
+
+bool is_same(const std::string& a, const std::string& b) {
+  return get(a) == get(b);
+}
+
 int main() {
   // freopen("input.txt","r",stdin);
   // freopen("output.txt","w",stdout);
