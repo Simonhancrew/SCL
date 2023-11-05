@@ -1,39 +1,60 @@
+#include <cinttypes>
 #include <iostream>
-//字符串哈希假定我们人品足够好，一般不会冲突
-//把一个字符串看作是p进制的数，然后mod 2 ** 64映射到一个有限区间。
-//一般取 p = 131或者13331的时候这个冲突极致的小
+#include <string>
+#include <vector>
 
-//减少代码，开ULL，等价于 % 2 ** 64
-typedef unsigned long long ULL;
+// Created by Simonhancrew on 2023/11/05
 
 using namespace std;
 
-int P = 131;
+using LL  = long long;
+using PII = pair<int, int>;
+#define fast_cin()                  \
+  ios_base::sync_with_stdio(false); \
+  cin.tie(nullptr);                 \
+  cout.tie(nullptr)
 
-const int N = 1e5 + 10;
+const int INF = 0x3f3f3f3f, P = 13331;
+using ULL = uint64_t;
 
-char str[N];
+int n, m;
+vector<ULL> p;
+vector<ULL> s_hash;
 
-// h记录哈希值，p记录p的i次方，减少计算
-ULL h[N], p[N];
+void build(const string &s) {
+  auto len = s.size();
+  for (auto i = 1; i <= n; i++) {
+    p[i]      = p[i - 1] * P;
+    s_hash[i] = s_hash[i - 1] * P + s[i - 1];
+  }
+}
 
-int get(int l, int r) { return h[r] - h[l - 1] * p[r - l + 1]; }
+ULL get(int l, int r) {
+  return s_hash[r] - s_hash[l - 1] * p[r - l + 1];
+}
 
 int main() {
-  int m, n;
-  scanf("%d%d%s", &n, &m, str + 1);
+  // freopen("input.txt","r",stdin);
+  // freopen("output.txt","w",stdout);
+  fast_cin();
+  cin >> n >> m;
+  // reserver is slower than resize
+  // maybe push_back is still check size, hh
+  p.resize(n + 1);
+  s_hash.resize(n + 1);
   p[0] = 1;
-  for (int i = 1; i <= n; i++) {
-    p[i] = p[i - 1] * P;
-    h[i] = h[i - 1] * P + str[i];
-  }
+  s_hash[0] = 1;
+  string s;
+  cin >> s;
+  build(s);
   while (m--) {
     int l1, r1, l2, r2;
-    scanf("%d%d%d%d", &l1, &r1, &l2, &r2);
-    if (get(l1, r1) == get(l2, r2))
-      puts("Yes");
-    else
-      puts("No");
+    cin >> l1 >> r1 >> l2 >> r2;
+    if (get(l1, r1) == get(l2, r2)) {
+      cout << "Yes\n";
+    } else {
+      cout << "No\n";
+    }
   }
   return 0;
 }
