@@ -6,6 +6,8 @@
 
 ### 实现
 
+可以参考0x3f的[这篇题解](https://leetcode.cn/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/solutions/2525946/dai-ni-fa-ming-floyd-suan-fa-cong-ji-yi-m8s51/?envType=daily-question&envId=2023-11-14), 从dfs出发一步步到递推。
+
 原理参考dp，f[k][x][y]代表只允许经过[1,k]节点(值得注意的是，此时整体路径是[1,k]的，但是x和y不一定在这个图中)，节点x到y的最短路长度。
 
 显然可以知道f[n][x][y]就是节点x到y的最短长度。
