@@ -2,7 +2,7 @@
 
 ## 利用dfs统计子节点问题, 针对节点
 
-```
+```cpp
 int up[N], lhs[N], rhs[N];
 int dfs(TreeNode* node, int tar) {
   if (!node) return 0;
@@ -42,20 +42,20 @@ int dfs(TreeNode* node, int tar) {
 2. 节点花费计算， 类似上面，但是是看节点的花费，一般题目会告诉你是一条联通路径的代价，代码类似，但不用算根，只要知道一条确定路径就可以了
 
     ```cpp
-      int total_cost = 0;
-      function<bool(int, int, int)> dfs = [&](int x, int end, int fa) {
-        if (x == end) {
+    int total_cost = 0;
+    function<bool(int, int, int)> dfs = [&](int x, int end, int fa) {
+      if (x == end) {
+        cnt[x]++;
+        total_cost += cost(x);
+        return true;
+      }
+      for (const auto y : g[x]) {
+        if (y != fa && dfs(y, end, x)) {
           cnt[x]++;
           total_cost += cost(x);
           return true;
         }
-        for (const auto y : g[x]) {
-          if (y != fa && dfs(y, end, x)) {
-            cnt[x]++;
-            total_cost += cost(x);
-            return true;
-          }
-        }
-        return false;
-      };
+      }
+      return false;
+    };
     ```
