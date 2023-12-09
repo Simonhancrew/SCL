@@ -22,6 +22,7 @@ for(int i = 0,j = 0,...;j < n;j++){
 ```cpp
 for (int i = 0;i < n;) {
     int start = i;
+    i += 1;
     while (i < n && judge(i)) {
         i++;
     }
