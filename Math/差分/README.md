@@ -6,7 +6,8 @@
 
 其中
 
-$$b_i = \begin{cases} a[i] , & n=1  \\  a[i] - a[i - 1] & n >= 2  \end{cases}$$
+$$ b_i = \begin{cases} a[i]&n=1 \\
+a[i] - a[i - 1] & n >= 2  \end{cases} $$
 
 也能看到，最好是让数组a的index从1开始，这样的话数组b能不做边界判断
 
