@@ -2,18 +2,18 @@
 
 记得二分区间要表达的意义
 
-这种找lower bound的，保证的是l - 1永远不合法，转换过来说就是a[l - 1]永远小于target，a[r]永远大于等于target。
+这种找lower bound的，保证的是l永远不合法，转换过来说就是a[l]永远小于target，a[r]永远大于等于target, 要的结果就是l + 1, 如果r == n, 说明没有合法的解
+
+如果要找upper bound(等于target的最右边，不是`std::upper_bound`), 那么就是a[l]永远小于等于target，a[r]永远大于target，l从-1开始，如果l结束了还是-1，没有合法解
 
 等价翻译过来，不要关心区间内的是什么范围，关心区间外的是怎么样的,区间外都是确定了和target的大小关系的。这样在最后结束二分时，就能够保证区间内的是什么范围了。
 
-优先下取整，把l缩放到最大
-
-写开区间的，(l, r), l<=的位置永远小于target，>= r的位置永远大于等于target
+写开区间的，(l, r), l<=的位置永远小于target，>= r的位置永远大于等于target（注意，等于只能在一边取到）
 
 此时，如果没有合法解答，r会位于数组右外侧。需要额外判断段一下
 
 ```cpp
-void lower_bound(int target) {
+int lower_bound(int target) {
   int l = -1, r = n;
   while (l + 1 < r) {
     int mid = (l + r) >> 1;
@@ -25,6 +25,21 @@ void lower_bound(int target) {
   }
   return r;
 }
+
+// 这里的bound是=target的右界，std::upper_bound在这个后一位，如果有的话
+int upper_bound(int target) {
+  int l = -1, r = n;
+  while (l + 1 < n) {
+    int mid = l + r >> 1;
+    if (check(mid)) {
+      l = mid;
+    } else {
+      r = mid;
+    }
+  }
+  return l;
+} 
+
 ```
 
 找上界的话，稍微修改一下lower bound

@@ -31,6 +31,20 @@ int lower_bound(const vector<int> &arr, int target) {
   return l + 1;
 }
 
+int upper_bound(const vector<int>& arr, int target) {
+  auto n = arr.size();
+  int l = -1, r = n;
+  while (l + 1 < r) {
+    int mid = l + r >> 1;
+    if (arr[mid] <= target) {
+      l = mid;
+    } else {
+      r = mid;
+    }
+  }
+  return r;
+}
+
 int main() {
   fast_cin();
   cin >> n >> q;
@@ -47,7 +61,8 @@ int main() {
       cout << -1 << ' ' << -1 << '\n';
       continue;
     }
-    auto r = lower_bound(arr, target + 1) - 1;
+    auto r = upper_bound(arr, target) - 1;
+    // auto r = lower_bound(arr, target + 1) - 1;
     cout << l << ' ' << r << '\n';
   }
   return 0;
