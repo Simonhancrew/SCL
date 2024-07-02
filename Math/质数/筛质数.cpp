@@ -10,8 +10,9 @@ void get_prime(int n) {
   for (int i = 2; i <= n; i++) {
     if (st[i]) continue;
     primes[cnt++] = i;
-    //把所有质数的2倍以上的数全部标记位合数
-    for (int j = i + i; j <= n; j += i) {
+    if ((long long)i * i > n) continue;
+    // NOTE: 因为2和i-1的倍数都算进去了，所以只要计算i的倍数就行了
+    for (int j = i * i; j <= n; j += i) {
       st[j] = true;
     }
   }
