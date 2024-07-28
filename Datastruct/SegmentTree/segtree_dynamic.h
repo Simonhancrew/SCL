@@ -155,10 +155,10 @@ class SegTree {
     PushDown();
     auto ans = 0;
     int mid  = l_ + r_ >> 1;
-    if (mid >= kL) {
+    if (mid >= kL && lhs_) {
       ans += lhs_->Query(kL, kR);
     }
-    if (mid < kR) {
+    if (mid < kR && rhs_) {
       ans += rhs_->Query(kL, kR);
     }
     return ans;
