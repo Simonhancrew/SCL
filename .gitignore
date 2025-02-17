@@ -1,5 +1,7 @@
 #folders 
 /.vscode
+/build.xmake
+/.xmake
 
 #record or log file
 *.txt
